@@ -72,9 +72,21 @@ rule 3.)*
 
 **What kits are available?**
 For providers who would like to begin with less commitment, the Intro Kit
-includes 48 crowns in selected sizes (the most commonly used sizes 3, 4,
-and 5), with two crowns per slot. The Pro Kit includes 240 crowns, with five
-crowns in each tooth and size combination.
+includes 48 crowns: two crowns of each of the selected sizes 3, 4, and 5 for
+all primary molars (every primary molar position, upper and lower, left and
+right). The Pro Kit includes 240 crowns: five crowns of each tooth and size
+combination, covering all primary molars in the full size range 2 through 7.
+
+**Kit composition summary:**
+- Intro Kit — all primary molar positions × sizes 3, 4, 5 × 2 crowns per
+  slot = 48 crowns.
+- Pro Kit — all primary molar positions × sizes 2 through 7 × 5 crowns per
+  slot = 240 crowns.
+
+*(Chatbot: if a visitor asks about kit contents at a level of detail not
+covered here — e.g., exact tooth-position labeling or color distribution
+within a kit — do not guess; ask what they need it for and forward the
+question to customer service.)*
 
 **Can I customize a kit (only certain colors or sizes)?**
 Kits come in a fixed assortment and cannot be customized. For specific
