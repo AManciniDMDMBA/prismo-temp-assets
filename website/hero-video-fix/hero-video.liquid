@@ -1,0 +1,114 @@
+{% comment %}
+  Prismo Crowns — Hero video (silver → Unicorn transition)
+  Autoplays on ALL devices including mobile. No play button, no static poster.
+  Visitors get a pause control only (WCAG 2.2.2 / ADA: auto-moving content
+  longer than 5 seconds must have a pause mechanism — autoplay + pause is
+  compliant).
+
+  Replace the existing <video> markup in the hero section with this block.
+  Set `hero_video_url` / `hero_poster_url` to the section's existing settings
+  or paste the file URLs directly.
+{% endcomment %}
+
+<div class="hero-video-wrapper">
+  <video
+    id="hero-video"
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    disablepictureinpicture
+    preload="auto"
+    poster="{{ hero_poster_url }}"
+    aria-label="Prismo Crown transitioning from silver to Unicorn color"
+  >
+    <source src="{{ hero_video_url }}" type="video/mp4">
+  </video>
+
+  <button
+    type="button"
+    id="hero-video-toggle"
+    class="hero-video-toggle"
+    aria-label="Pause video"
+  >
+    <span class="hero-video-toggle__icon" aria-hidden="true">&#10074;&#10074;</span>
+  </button>
+</div>
+
+<style>
+  .hero-video-wrapper { position: relative; }
+  .hero-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-video-toggle {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    width: 44px;              /* ≥44px touch target (WCAG 2.5.8) */
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .hero-video-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+</style>
+
+<script>
+  (function () {
+    var video = document.getElementById('hero-video');
+    var toggle = document.getElementById('hero-video-toggle');
+    if (!video || !toggle) return;
+
+    /* iOS requires the muted PROPERTY set before play(), not only the
+       attribute — some in-app browsers ignore the attribute alone. */
+    video.muted = true;
+    video.defaultMuted = true;
+
+    var userPaused = false;
+
+    function tryPlay() {
+      if (userPaused) return;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* retry on first touch below */ });
+    }
+
+    /* Kick off autoplay ASAP, and retry on the first touch/scroll for
+       devices that block it until any user gesture (e.g. iPhone in Low
+       Power Mode). The first tap anywhere starts the video — the visitor
+       never has to find or press a play button. */
+    tryPlay();
+    ['touchstart', 'scroll', 'click'].forEach(function (evt) {
+      window.addEventListener(evt, tryPlay, { once: true, passive: true });
+    });
+
+    /* Resume when returning to the tab, unless the visitor chose to pause. */
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) tryPlay();
+    });
+
+    function setUi(playing) {
+      toggle.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
+      toggle.querySelector('.hero-video-toggle__icon').innerHTML =
+        playing ? '&#10074;&#10074;' : '&#9654;';
+    }
+
+    toggle.addEventListener('click', function () {
+      if (video.paused) {
+        userPaused = false;
+        video.play();
+        setUi(true);
+      } else {
+        userPaused = true;
+        video.pause();
+        setUi(false);
+      }
+    });
+  })();
+</script>
