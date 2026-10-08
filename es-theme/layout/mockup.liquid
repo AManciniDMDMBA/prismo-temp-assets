@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- endif -%}
+    <title>
+      {%- if template.name == 'index' -%}{% if request.locale.iso_code == 'es' %}Prismo Crowns — Coronas dentales pediátricas de colores que los niños aman{% else %}Prismo Crowns — Colored Pediatric Dental Crowns Kids Love{% endif %}
+      {%- else -%}
+        {{ page_title }}
+        {%- if current_page != 1 %} — Page {{ current_page }}{%- endif -%}
+        {%- unless page_title contains shop.name %} — {{ shop.name }}{%- endunless -%}
+      {%- endif -%}
+    </title>
+    {%- if page_description %}<meta name="description" content="{{ page_description | escape }}">{%- endif %}
+    {%- liquid
+      assign seo_title = page_title | default: shop.name
+      if template.name == 'index'
+        assign seo_title = 'Prismo Crowns — Colored Pediatric Dental Crowns Kids Love'
+        if request.locale.iso_code == 'es'
+          assign seo_title = 'Prismo Crowns — Coronas dentales pediátricas de colores que los niños aman'
+        endif
+      endif
+      assign seo_description = page_description | default: shop.description | default: shop.name
+    -%}
+    <meta property="og:site_name" content="{{ shop.name }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ seo_title | escape }}">
+    <meta property="og:description" content="{{ seo_description | escape }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ seo_title | escape }}">
+    <meta name="twitter:description" content="{{ seo_description | escape }}">
+    {%- if template.name == 'index' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Prismo Crowns",
+      "url": "{{ shop.url }}",
+      "logo": "https://cdn.shopify.com/s/files/1/0887/0409/0388/files/prismocrowns-tooth.png",
+      "description": "Premium colored stainless-steel pediatric dental crowns. Patented laser-assisted color process. Kids choose the color; dentists keep the clinical workflow they trust.",
+      "email": "prismocrowns@gmail.com"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Prismo Crowns",
+      "url": "{{ shop.url }}"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are Prismo Crowns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Prismo Crowns are premium stainless steel pediatric dental crowns with vibrant colors created through a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating. The crowns are 100% biocompatible, and the color won't chip or fade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the color applied? Is it safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Color is created through a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating. The crowns are 100% biocompatible and meet the same safety standards as traditional silver stainless steel crowns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does technique differ from traditional silver stainless steel crowns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Prismo Crowns use the exact same chairside placement technique as conventional silver stainless steel crowns. No new instruments, no new workflow. Your team can start using them from day one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you ship to my country?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We ship to most countries worldwide. Some regions are excluded due to international trade regulations or shipping limitations. If you're unsure whether we deliver to your location, contact us and we'll confirm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What colors do you offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Current color options include Gold, Blue, Purple, Assorted, and Unicorn (iridescent/multicolor). Individual color refill packs start at $8.99 ea."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Prismo Crowns made in the USA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Prismo Crowns are manufactured in the USA."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do Prismo Crowns bill? Is there a separate code for colored crowns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No separate code is needed. Prismo Crowns are billed under the exact same CDT code as traditional silver stainless steel crowns. Same prep, same placement, same documentation. Nothing changes on the administrative or clinical side."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are these crowns safe for my child?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Prismo Crowns are 100% biocompatible, made from the same surgical-grade stainless steel used in traditional pediatric crowns for decades. The color is created by a patented laser-assisted process that does not modify the surface of the steel — no dye, no paint, no coating."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my insurance cover a colored crown?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If Silver is covered then Prismo is also covered, yes (all major dental insurances including Medicaid). Prismo Crowns are billed under the same dental code as standard stainless steel crowns, so insurance treats them the same. Ask your dentist to confirm coverage with your specific plan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the color chip or fade?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the color comes from a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating — it is as durable as the silver crown. Normal brushing, eating, and drinking won't affect it, and the crowns are 100% biocompatible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does my child's dentist need special training?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No special training is needed. Prismo Crowns are placed exactly like traditional silver stainless steel crowns, so any pediatric or general dentist already knows how to use them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my child actually like a colored crown?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most kids don't just like it, they ask for it by color. When a child gets to choose, the crown becomes something they own rather than something that happened to them. That shift changes the whole appointment. Think of it like colored braces. Nobody hides braces anymore because kids turned them into a choice. Prismo works the same way. A kid who picked their color tends to show it off, and parents often notice they're brushing better at home too."
+          }
+        }
+      ]
+    }
+    </script>
+    {%- endif %}
+    {{ content_for_header }}
+  <style id="prismo-bigger-crowns">.crown-banner{height:560px!important}.crown-ticker{height:90px!important}</style>
+    </head>
+  <body>
+    {{ content_for_layout }}{% capture prismo_src %}
+    <script>
+      (function () {
+        var tries = 0;
+        function addFaqLink() {
+          tries++;
+          var navLinks = document.querySelector('nav .nav-links');
+          if (!navLinks) {
+            if (tries < 20) setTimeout(addFaqLink, 250);
+            return;
+          }
+          if (navLinks.querySelector('.nav-faq-link')) return;
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#';
+          a.textContent = 'FAQ';
+          a.className = 'nav-faq-link';
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            var trigger = document.querySelector('[data-faq]');
+            if (trigger) trigger.click();
+          });
+          li.appendChild(a);
+          var contactLi = navLinks.querySelector('[data-contact]');
+          if (contactLi && contactLi.closest('li')) {
+            navLinks.insertBefore(li, contactLi.closest('li'));
+          } else {
+            navLinks.appendChild(li);
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addFaqLink);
+        } else {
+          addFaqLink();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        var tries = 0;
+        function addSamplesFaq() {
+          tries++;
+          var modal = document.getElementById('faqModal');
+          if (!modal) {
+            if (tries < 20) setTimeout(addSamplesFaq, 250);
+            return;
+          }
+          if (modal.querySelector('.faq-samples-item')) return;
+          var anchor = null;
+          modal.querySelectorAll('.faq-item .faq-q').forEach(function (btn) {
+            if (btn.textContent.indexOf('Pricing') !== -1) anchor = btn.closest('.faq-item');
+          });
+          var item = document.createElement('div');
+          item.className = 'faq-item faq-samples-item';
+          item.innerHTML =
+            '<button class="faq-q">Do you offer free samples?<span class="faq-q-icon">+</span></button>' +
+            '<div class="faq-a"><div class="faq-a-inner">' +
+            'We don’t — because there’s nothing to trial. Prismo Crowns are the same proven stainless steel crown system dentists have trusted since 1957: same prep, same cementation, same clinical fit you already know. The only thing that’s new is the color.<br><br>' +
+            'The best introduction is the <strong>Intro Kit</strong> — 48 crowns in sizes 3, 4 &amp; 5, enough to see how your patients respond across real cases. Prefer to start even smaller? A single <strong>Refill Pack</strong> (5 crowns) works too, though it covers only one size, so it may not fit every case that walks in.<br><br>' +
+            'For the full modern pediatric crown experience, the Intro Kit is the way to start.' +
+            '</div></div>';
+          if (anchor && anchor.parentNode) {
+            anchor.parentNode.insertBefore(item, anchor.nextSibling);
+          } else {
+            var label = modal.querySelector('.faq-section-label');
+            if (label && label.parentNode) label.parentNode.appendChild(item);
+            else return;
+          }
+          item.querySelector('.faq-q').addEventListener('click', function () {
+            var wasOpen = item.classList.contains('open');
+            modal.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+            if (!wasOpen) item.classList.add('open');
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addSamplesFaq);
+        } else {
+          addSamplesFaq();
+        }
+      })();
+    </script>
+    <style>
+      .prismo-burger {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px 6px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4.5px;
+      }
+      .prismo-burger span {
+        display: block;
+        width: 21px;
+        height: 2px;
+        background: #0a1628;
+        border-radius: 2px;
+        transition: transform .25s, opacity .25s;
+      }
+      .prismo-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      .prismo-burger.open span:nth-child(2) { opacity: 0; }
+      .prismo-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+      .prismo-mobile-menu {
+        display: none;
+        position: fixed;
+        top: 95px;
+        left: 0;
+        right: 0;
+        z-index: 199;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0,0,60,0.1);
+        box-shadow: 0 18px 40px rgba(10,22,40,0.12);
+        padding: 8px 22px 14px;
+        font-family: 'Outfit', sans-serif;
+      }
+      .prismo-mobile-menu.open { display: flex; }
+      .prismo-mobile-menu a {
+        padding: 13px 4px;
+        color: rgba(10,22,40,0.78);
+        text-decoration: none;
+        font-size: 15.5px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(0,0,60,0.06);
+      }
+      .prismo-mobile-menu a:last-child { border-bottom: none; }
+      @media (max-width: 960px) {
+        .prismo-burger { display: flex; }
+      }
+    </style>
+    <script>
+      (function () {
+        var tries = 0;
+        function addBurger() {
+          tries++;
+          var nav = document.querySelector('nav');
+          if (!nav || !nav.querySelector('.nav-logo')) {
+            if (tries < 20) setTimeout(addBurger, 250);
+            return;
+          }
+          if (nav.querySelector('.prismo-burger')) return;
+          var btn = document.createElement('button');
+          btn.className = 'prismo-burger';
+          btn.setAttribute('aria-label', 'Open menu');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.innerHTML = '<span></span><span></span><span></span>';
+          nav.insertBefore(btn, nav.firstChild);
+          var menu = document.createElement('div');
+          menu.className = 'prismo-mobile-menu';
+          document.body.appendChild(menu);
+          function setOpen(open) {
+            menu.classList.toggle('open', open);
+            btn.classList.toggle('open', open);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            if (open) menu.style.top = nav.getBoundingClientRect().bottom + 'px';
+          }
+          var items = [
+            ['Shop', function () { window.location.href = '/collections/shop-now'; }],
+            ['For Parents', function () { if (window.showPage) window.showPage('parents'); }],
+            ['Compare', function () { if (window.showPage) window.showPage('compare'); }],
+            ['Insights', function () { window.location.href = '/blogs/news'; }],
+            ['Testimonials', function () {
+              if (window.showPage) window.showPage('home');
+              var el = document.getElementById('section-testimonials');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }],
+            ['FAQ', function () { var t = document.querySelector('[data-faq]'); if (t) t.click(); }],
+            ['Contact', function () { var t = document.querySelector('[data-contact]'); if (t) t.click(); }]
+          ];
+          items.forEach(function (it) {
+            var a = document.createElement('a');
+            a.href = '#';
+            a.textContent = it[0];
+            a.addEventListener('click', function (e) {
+              e.preventDefault();
+              setOpen(false);
+              it[1]();
+            });
+            menu.appendChild(a);
+          });
+          btn.addEventListener('click', function () { setOpen(!menu.classList.contains('open')); });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addBurger);
+        } else {
+          addBurger();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        var SPIN_VIDEO = 'https://cdn.shopify.com/videos/c/vp/5f235ffcaa5b481aafd862a499028df8/5f235ffcaa5b481aafd862a499028df8.HD-720p-3.0Mbps-86211195.mp4';
+        var CROWNS_PHOTO = 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/crowns-product.png?v=1788791927&width=1200';
+        var tries = 0;
+        function swapHero() {
+          tries++;
+          var heroImg = document.querySelector('.hero-product-img');
+          var bannerVid = document.getElementById('crownVideo');
+          if (!heroImg || !bannerVid) {
+            if (tries < 20) setTimeout(swapHero, 250);
+            return;
+          }
+          var wrap = document.createElement('div');
+          wrap.className = 'hero-product-img';
+          wrap.style.cssText = 'position:relative;';
+          var caption = document.createElement('div');
+          caption.style.cssText = 'position:absolute;top:4%;left:0;right:0;text-align:center;z-index:2;font-family:\'Outfit\',sans-serif;pointer-events:none;';
+          caption.innerHTML =
+            '<span style="display:block;font-size:clamp(17px,1.9vw,25px);font-weight:700;color:#9aa7b5;letter-spacing:1.5px;">From ordinary</span>' +
+            '<span style="display:block;font-size:clamp(23px,2.6vw,34px);font-weight:800;letter-spacing:0.5px;background:linear-gradient(90deg,#e53935,#f4a100,#d4b800,#43a047,#1e88e5,#8e24aa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">To extraordinary</span>';
+          var v = document.createElement('video');
+          v.src = SPIN_VIDEO;
+          v.autoplay = true;
+          v.muted = true;
+          v.loop = true;
+          v.playsInline = true;
+          v.preload = 'auto';
+          v.setAttribute('muted', '');
+          v.setAttribute('playsinline', '');
+          v.setAttribute('aria-label', 'Prismo Crown transforming from silver to unicorn colors');
+          v.style.cssText = 'width:100%;display:block;-webkit-mask-image:radial-gradient(closest-side, #000 55%, transparent 86%);mask-image:radial-gradient(closest-side, #000 55%, transparent 86%);';
+          wrap.appendChild(caption);
+          wrap.appendChild(v);
+          heroImg.replaceWith(wrap);
+          v.play().catch(function () {});
+          var im = document.createElement('img');
+          im.src = CROWNS_PHOTO;
+          im.alt = 'Prismo Crowns — Unicorn, Gold, Sapphire Blue, and Royal Purple';
+          im.style.cssText = 'height:100%;width:auto;display:block;';
+          bannerVid.replaceWith(im);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', swapHero);
+        } else {
+          swapHero();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        var hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        var tries = 0;
+        function go() {
+          tries++;
+          if ((hash === 'parents' || hash === 'compare') && window.showPage) {
+            window.showPage(hash);
+            return;
+          }
+          if (hash === 'faq' || hash === 'contact') {
+            var el = document.querySelector('[data-' + hash + ']');
+            if (el) {
+              el.click();
+              return;
+            }
+          }
+          if (tries < 20) setTimeout(go, 150);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { setTimeout(go, 100); });
+        } else {
+          setTimeout(go, 100);
+        }
+      })();
+    </script>
+    <style>
+      .tc-play {
+        pointer-events: auto;
+        position: absolute;
+        left: 50%;
+        bottom: 12px;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: linear-gradient(135deg, #d4900a, #e8a500);
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        z-index: 5;
+        transition: transform .2s, box-shadow .2s;
+        white-space: nowrap;
+      }
+      .tc-play:hover { transform: translateX(-50%) translateY(-1px); box-shadow: 0 8px 24px rgba(212,144,10,0.45); }
+      .tc-play svg { width: 12px; height: 12px; flex-shrink: 0; }
+      .tc-video-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(8, 14, 28, 0.82);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        padding: 24px;
+      }
+      .tc-video-overlay.active { display: flex; }
+      .tc-video-box { position: relative; max-width: 92vw; }
+      .tc-video-box video {
+        display: block;
+        height: min(78vh, 720px);
+        max-width: 92vw;
+        border-radius: 16px;
+        background: #000;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      }
+      .tc-video-name {
+        text-align: center;
+        color: rgba(255,255,255,0.85);
+        font-family: 'Outfit', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 12px;
+      }
+      .tc-video-close {
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        color: #0a1628;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+        z-index: 2;
+      }
+    </style>
+    <script>
+      (function () {
+        var VIDEOS = [
+          {
+            match: 'Murat',
+            name: 'Murat Büyüksefil — Pediatric Dentist',
+            src: 'https://cdn.shopify.com/videos/c/vp/eb1c3617fd3448d2a7948e08eb0a81ad/eb1c3617fd3448d2a7948e08eb0a81ad.HD-720p-1.6Mbps-46265640.mp4',
+            poster: 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/preview_images/eb1c3617fd3448d2a7948e08eb0a81ad.thumbnail.0000000000.jpg?v=1745159825'
+          },
+          {
+            match: 'Kaczmarski',
+            name: 'Dr. Jon Kaczmarski — Purple Tooth Pediatric Dentistry',
+            src: 'https://cdn.shopify.com/videos/c/vp/5963894963624544b8dda513c072b517/5963894963624544b8dda513c072b517.HD-720p-1.6Mbps-46265899.mp4',
+            poster: 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/preview_images/5963894963624544b8dda513c072b517.thumbnail.0000000000.jpg?v=1745160312'
+          },
+          {
+            match: 'Maria Carmen',
+            name: 'Dr. Maria Carmen Sanchez — Pediatric Dentist',
+            src: 'https://cdn.shopify.com/videos/c/vp/243a554dab5a4b43b4e9f34816c8d4f1/243a554dab5a4b43b4e9f34816c8d4f1.HD-720p-1.6Mbps-46252087.mp4',
+            poster: 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/preview_images/243a554dab5a4b43b4e9f34816c8d4f1.thumbnail.0000000000.jpg?v=1745115979'
+          }
+        ];
+
+        var overlay, player, nameEl;
+
+        function buildOverlay() {
+          overlay = document.createElement('div');
+          overlay.className = 'tc-video-overlay';
+          overlay.innerHTML =
+            '<div class="tc-video-box">' +
+            '<button class="tc-video-close" aria-label="Close video">&#10005;</button>' +
+            '<video controls playsinline preload="none"></video>' +
+            '<div class="tc-video-name"></div>' +
+            '</div>';
+          document.body.appendChild(overlay);
+          player = overlay.querySelector('video');
+          nameEl = overlay.querySelector('.tc-video-name');
+          function close() {
+            player.pause();
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+          overlay.querySelector('.tc-video-close').addEventListener('click', close);
+          overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) close();
+          });
+        }
+
+        function openVideo(v) {
+          if (!overlay) buildOverlay();
+          if (player.getAttribute('src') !== v.src) {
+            player.setAttribute('src', v.src);
+            player.setAttribute('poster', v.poster);
+          }
+          nameEl.textContent = v.name;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          player.play().catch(function () {});
+        }
+
+        function addButtons() {
+          var cards = document.querySelectorAll('.tc-card');
+          if (!cards.length) return false;
+          VIDEOS.forEach(function (v) {
+            for (var i = 0; i < cards.length; i++) {
+              var nm = cards[i].querySelector('.tc-name');
+              var top = cards[i].querySelector('.tc-top');
+              if (!nm || !top || nm.textContent.indexOf(v.match) === -1) continue;
+              if (top.querySelector('.tc-play')) break;
+              if (getComputedStyle(top).position === 'static') top.style.position = 'relative';
+              var btn = document.createElement('button');
+              btn.className = 'tc-play';
+              btn.setAttribute('aria-label', 'Watch video testimonial from ' + v.match);
+              btn.innerHTML = '<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><polygon points="2,1 11,6 2,11" fill="currentColor"/></svg> Watch Video';
+              btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openVideo(v);
+              });
+              top.appendChild(btn);
+              break;
+            }
+          });
+          return true;
+        }
+
+        var tries = 0;
+        function init() {
+          tries++;
+          if (!addButtons() && tries < 20) setTimeout(init, 250);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+    <style>.prismo-rainbow{background:linear-gradient(90deg,#e53935,#f4a100,#d4b800,#43a047,#1e88e5,#8e24aa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}</style>
+    <script>
+      (function () {
+        var tries = 0;
+        function fixCompareHeading() {
+          tries++;
+          var scope = document.getElementById('page-compare');
+          if (!scope) { if (tries < 20) setTimeout(fixCompareHeading, 250); return; }
+          var target = null;
+          scope.querySelectorAll('h2').forEach(function (h) {
+            if (h.textContent.indexOf('Different Categor') !== -1 || h.textContent.indexOf('Different Color') !== -1) target = h;
+          });
+          if (!target || target.getAttribute('data-prismo-fixed')) return;
+          target.setAttribute('data-prismo-fixed', '1');
+          target.innerHTML = 'Not Just a Different <span class="prismo-rainbow">Color</span>.<br>A Different <span class="prismo-rainbow">Experience</span>.';
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fixCompareHeading);
+        } else {
+          fixCompareHeading();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        function optimizeImages() {
+          document.querySelectorAll('img[src*="cdn.shopify.com/s/files"]').forEach(function (img) {
+            try {
+              var u = new URL(img.src);
+              if (!u.searchParams.has('width')) {
+                u.searchParams.set('width', '1400');
+                img.src = u.toString();
+              }
+            } catch (e) {}
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', optimizeImages);
+        } else {
+          optimizeImages();
+        }
+      })();
+    </script>
+  {% endcapture %}{% render 'prismo-es', html: prismo_src %}</body>
+</html>

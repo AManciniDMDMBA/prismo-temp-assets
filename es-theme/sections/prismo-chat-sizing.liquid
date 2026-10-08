@@ -1,0 +1,181 @@
+{% capture prismo_src %}<script>
+  (function () {
+    var SIZING_RX = /\b(siz(e|es|ed|ing)|3\s*m|unitek|espe|hu[\s.-]?friedy|hufriedy|comparab\w*|compatib\w*|equivalen\w*|interchang\w*|fits?|fitment|dimensions?|conversion|crossover)\b/i;
+    var CHAT_ANSWER =
+      'Sizing is one of the easiest parts of switching. Prismo Crowns come in standard pediatric sizes 2–7 and follow the same universal stainless steel crown sizing you already use — comparable to 3M stainless steel crown sizing, so the size you place today is the size you pick with Prismo. Providers have also shared that the fit lines up with Hu-Friedy sizing. Same chairside trial-and-fit, no conversion chart needed. The Intro Kit covers the most-used sizes (3, 4 & 5), and refill packs are available in every size 2–7. 🎬 <a href="#" class="chat-sizing-video-link" style="color:#992dbf;font-weight:600;text-decoration:underline;">Watch our sizing video</a> to see the fit in action.';
+
+    /* The original chat handles every message (so it stays in the transcript email);
+       for sizing questions the reply shown on screen is replaced with CHAT_ANSWER. */
+    function lastUserText(msgs) {
+      var users = msgs.querySelectorAll('.chat-msg.user .chat-bubble');
+      return users.length ? users[users.length - 1].textContent.trim() : '';
+    }
+
+    /* Append helper links to every bot reply so customers can self-serve. */
+    var COLOR_ANSWER_RX = /(chip or fade|laser-assisted process|no dye, no paint)/i;
+    function addFaqTail(bubble) {
+      if (!bubble || bubble.querySelector('.chat-faq-link')) return;
+      if (COLOR_ANSWER_RX.test(bubble.textContent) && !bubble.querySelector('.chat-scrub-video-link')) {
+        var vtail = document.createElement('span');
+        vtail.className = 'chat-video-tail';
+        vtail.innerHTML = ' 🎬 See it yourself: <a href="#" class="chat-scrub-video-link" style="color:#992dbf;font-weight:600;text-decoration:underline;">watch our scrub-test video</a> — the color doesn’t come off.';
+        bubble.appendChild(vtail);
+      }
+      var tail = document.createElement('span');
+      tail.className = 'chat-faq-tail';
+      tail.innerHTML = '<br><br>📖 You can also browse our <a href="#" class="chat-faq-link" style="color:#992dbf;font-weight:600;text-decoration:underline;">FAQ</a> for more answers.';
+      bubble.appendChild(tail);
+    }
+
+    var obsTries = 0;
+    function watchChat() {
+      obsTries++;
+      var msgs = document.getElementById('chatMessages');
+      if (!msgs) {
+        if (obsTries < 30) setTimeout(watchChat, 300);
+        return;
+      }
+      new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          for (var i = 0; i < m.addedNodes.length; i++) {
+            var n = m.addedNodes[i];
+            if (n.nodeType === 1 && n.classList.contains('chat-msg') && n.classList.contains('bot')) {
+              var bubble = n.querySelector('.chat-bubble');
+              var asked = lastUserText(msgs);
+              if (bubble && asked && SIZING_RX.test(asked) && !bubble.getAttribute('data-prismo-sizing')) {
+                bubble.setAttribute('data-prismo-sizing', '1');
+                bubble.innerHTML = CHAT_ANSWER;
+              }
+              addFaqTail(bubble);
+            }
+          }
+        });
+      }).observe(msgs, { childList: true });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchChat);
+    } else {
+      watchChat();
+    }
+
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest ? e.target.closest('.chat-faq-link') : null;
+      if (!link) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var trigger = document.querySelector('[data-faq]');
+      if (trigger) trigger.click();
+    }, true);
+
+    /* Video links — close any open modal, return to home view, scroll to the target gallery card and play it.
+       .chat-sizing-video-link → Clinical Sizing card; .chat-scrub-video-link → Unbreakable Colors (scrub-test) card. */
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest ? e.target.closest('.chat-sizing-video-link, .chat-scrub-video-link') : null;
+      if (!link) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var cardRx = link.classList.contains('chat-scrub-video-link')
+        ? /Unbreakable Colors/i
+        : /Fit\s*&\s*Sizing|Clinical Sizing|Right fit/i;
+      ['faqModal', 'contactModal'].forEach(function (id) {
+        var m = document.getElementById(id);
+        if (m && m.classList.contains('active')) {
+          var c = document.getElementById(id + 'Close');
+          if (c) c.click(); else m.classList.remove('active');
+        }
+      });
+      if (window.showPage) window.showPage('home');
+      var card = null;
+      document.querySelectorAll('.gallery-section .gc').forEach(function (c) {
+        if (!card && cardRx.test(c.textContent)) card = c;
+      });
+      if (!card) return;
+      setTimeout(function () {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var v = card.querySelector('video');
+        if (v) { try { v.play(); } catch (err) {} }
+        card.style.transition = 'box-shadow .4s';
+        card.style.boxShadow = '0 0 0 4px #992dbf';
+        setTimeout(function () { card.style.boxShadow = ''; }, 2500);
+        /* Fallback if smooth scroll was blocked (e.g. a scroll lock left over from a modal). */
+        setTimeout(function () {
+          var r = card.getBoundingClientRect();
+          if (r.top < 0 || r.top > window.innerHeight - 80) {
+            var se = document.scrollingElement || document.documentElement;
+            se.scrollTop = se.scrollTop + r.top - Math.max(0, (window.innerHeight - r.height) / 2);
+          }
+        }, 900);
+      }, 150);
+    }, true);
+  })();
+</script>
+<script>
+  (function () {
+    var tries = 0;
+    function addSizingFaq() {
+      tries++;
+      var modal = document.getElementById('faqModal');
+      if (!modal) {
+        if (tries < 30) setTimeout(addSizingFaq, 300);
+        return;
+      }
+      if (modal.querySelector('.faq-sizing-item')) return;
+      var anchor = modal.querySelector('.faq-samples-item');
+      if (!anchor) {
+        modal.querySelectorAll('.faq-item .faq-q').forEach(function (btn) {
+          if (btn.textContent.indexOf('Pricing') !== -1) anchor = btn.closest('.faq-item');
+        });
+      }
+      if (!anchor && tries < 30) {
+        setTimeout(addSizingFaq, 300);
+        return;
+      }
+      var item = document.createElement('div');
+      item.className = 'faq-item faq-sizing-item';
+      item.innerHTML =
+        '<button class="faq-q">How does sizing work — is it comparable to 3M or Hu-Friedy?<span class="faq-q-icon">+</span></button>' +
+        '<div class="faq-a"><div class="faq-a-inner">' +
+        'Prismo Crowns come in standard pediatric sizes 2–7 and follow the universal stainless steel crown sizing system. Sizing is comparable to 3M™ stainless steel crowns — the size you place today is the same size you pick with Prismo — and providers also report the fit lines up with Hu-Friedy® sizing. Chairside trial-and-fit works exactly like the conventional crowns you already use; no conversion chart needed.<br><br>' +
+        'The <strong>Intro Kit</strong> covers the three most-used sizes (3, 4 &amp; 5), and <strong>Refill Packs</strong> are available in every size 2–7.<br><br>' +
+        '🎬 <a href="#" class="chat-sizing-video-link" style="color:#992dbf;font-weight:600;text-decoration:underline;">Watch the sizing video</a> to see the fit in action.<br><br>' +
+        '<em>3M™ and Hu-Friedy® are trademarks of their respective owners and are not affiliated with Prismo Crowns.</em>' +
+        '</div></div>';
+      if (anchor && anchor.parentNode) {
+        anchor.parentNode.insertBefore(item, anchor.nextSibling);
+      } else {
+        var label = modal.querySelector('.faq-section-label');
+        if (label && label.parentNode) label.parentNode.appendChild(item);
+        else return;
+      }
+      item.querySelector('.faq-q').addEventListener('click', function () {
+        var wasOpen = item.classList.contains('open');
+        modal.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
+      });
+
+      /* Add the scrub-test video link to the color-related FAQ answers. */
+      modal.querySelectorAll('.faq-item').forEach(function (it) {
+        var q = it.querySelector('.faq-q');
+        var a = it.querySelector('.faq-a-inner');
+        if (!q || !a || a.querySelector('.chat-scrub-video-link')) return;
+        if (/chip or fade|color applied|colors safe/i.test(q.textContent)) {
+          var span = document.createElement('span');
+          span.innerHTML = '<br><br>🎬 <a href="#" class="chat-scrub-video-link" style="color:#992dbf;font-weight:600;text-decoration:underline;">Watch our scrub-test video</a> — the color doesn’t come off, and the stainless steel underneath is untouched.';
+          a.appendChild(span);
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', addSizingFaq);
+    } else {
+      addSizingFaq();
+    }
+  })();
+</script>
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo Chat Sizing Patch",
+  "settings": [],
+  "presets": [{ "name": "Prismo Chat Sizing Patch" }]
+}
+{% endschema %}

@@ -1,0 +1,245 @@
+{% capture prismo_src %}<div class="prismo-ann">Intro Kit Now Available — 48 Crowns in Sizes 3, 4 &amp; 5 &nbsp;&middot;&nbsp; Made in the USA</div>
+
+<nav class="prismo-nav">
+  <button class="prismo-burger" aria-label="Open menu" aria-expanded="false" aria-controls="prismoMobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="{{ routes.root_url }}" class="nav-logo">
+    <img src="https://cdn.shopify.com/s/files/1/0887/0409/0388/files/prismocrowns-tooth-transparent.png?v=1781117660" alt="" width="39" height="30" style="height:30px;width:auto;">
+    PRISMO CROWNS
+  </a>
+  <ul class="nav-links">
+    <li><a href="{{ routes.collections_url }}/shop-now">Shop</a></li>
+    <li><a href="/#parents">For Parents</a></li>
+    <li><a href="/#compare">Compare</a></li>
+    <li><a href="/blogs/news">Insights</a></li>
+    <li><a href="/#section-testimonials">Testimonials</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    {%- unless template contains 'blog' or template contains 'article' -%}
+      <a href="{{ routes.cart_url }}" class="nav-cart header__icon header__icon--cart link" id="cart-icon-bubble" aria-label="{{ 'templates.cart.cart' | t }}">
+        <span class="svg-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9.5" cy="20" r="1.6"/>
+            <circle cx="18.5" cy="20" r="1.6"/>
+            <path d="M2.5 3.5h2.4l2.5 12a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6l1.7-8.5H6"/>
+          </svg>
+        </span>
+        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+        {%- if cart != empty -%}
+          <div class="cart-count-bubble">
+            {%- if cart.item_count < 100 -%}
+              <span aria-hidden="true">{{ cart.item_count }}</span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    {%- endunless -%}
+    <a href="{{ routes.collections_url }}/shop-now" class="nav-cta">Order Now</a>
+  </div>
+</nav>
+<div class="prismo-mobile-menu" id="prismoMobileMenu">
+  <a href="{{ routes.collections_url }}/shop-now">Shop</a>
+  <a href="/#parents">For Parents</a>
+  <a href="/#compare">Compare</a>
+  <a href="/blogs/news">Insights</a>
+  <a href="/#section-testimonials">Testimonials</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/#contact">Contact</a>
+</div>
+<div class="prismo-nav-spacer"></div>
+<script>
+  (function () {
+    var btn = document.querySelector('.prismo-nav .prismo-burger');
+    var menu = document.getElementById('prismoMobileMenu');
+    var nav = document.querySelector('.prismo-nav');
+    if (!btn || !menu || !nav) return;
+    function setOpen(open) {
+      menu.classList.toggle('open', open);
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) menu.style.top = nav.getBoundingClientRect().bottom + 'px';
+    }
+    btn.addEventListener('click', function () { setOpen(!menu.classList.contains('open')); });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+  })();
+</script>
+
+{%- if settings.cart_type == 'notification' and template != 'cart' -%}
+  {{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+  {%- render 'cart-notification', color_scheme: 'scheme-1' -%}
+{%- endif -%}
+
+<style>
+.prismo-ann {
+  background: linear-gradient(90deg, #4c1d95, #1e3a8a, #4c1d95);
+  background-size: 200%;
+  animation: prismo-ann-slide 6s linear infinite;
+  text-align: center;
+  padding: 0 20px;
+  height: 37px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #fff;
+}
+@keyframes prismo-ann-slide { 0% { background-position: 0%; } 100% { background-position: 200%; } }
+.prismo-nav {
+  position: fixed;
+  top: 37px;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 56px;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,60,0.1);
+  font-family: 'Outfit', sans-serif;
+}
+.prismo-nav-spacer { height: 63px; }
+.prismo-nav .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #d4900a 0%, #db2777 60%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+.prismo-nav .nav-logo img { flex-shrink: 0; }
+.prismo-nav .nav-links { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+.prismo-nav .nav-links a {
+  color: rgba(10,22,40,0.55);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color .2s;
+}
+.prismo-nav .nav-links a:hover { color: #0a1628; }
+.prismo-nav .nav-right { display: flex; align-items: center; gap: 14px; }
+.prismo-nav .nav-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  color: #0a1628;
+}
+.prismo-nav .nav-cart svg { width: 22px; height: 22px; }
+.prismo-nav .nav-cart .cart-count-bubble {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  background: #d4900a;
+  color: #fff;
+  border-radius: 50%;
+  min-width: 17px;
+  height: 17px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+.prismo-nav .nav-cta {
+  background: linear-gradient(135deg, #d4900a, #e8a500);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 22px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.prismo-nav .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(212,144,10,0.4); }
+.prismo-burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 6px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4.5px;
+}
+.prismo-burger span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  background: #0a1628;
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+.prismo-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.prismo-burger.open span:nth-child(2) { opacity: 0; }
+.prismo-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.prismo-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 96px;
+  left: 0;
+  right: 0;
+  z-index: 199;
+  flex-direction: column;
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,60,0.1);
+  box-shadow: 0 18px 40px rgba(10,22,40,0.12);
+  padding: 8px 22px 14px;
+  font-family: 'Outfit', sans-serif;
+}
+.prismo-mobile-menu.open { display: flex; }
+.prismo-mobile-menu a {
+  padding: 13px 4px;
+  color: rgba(10,22,40,0.78);
+  text-decoration: none;
+  font-size: 15.5px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,0,60,0.06);
+}
+.prismo-mobile-menu a:last-child { border-bottom: none; }
+@media (max-width: 960px) {
+  .prismo-nav { padding: 14px 20px; }
+  .prismo-nav .nav-links { display: none; }
+  .prismo-nav-spacer { height: 59px; }
+  .prismo-burger { display: flex; }
+}
+</style>
+
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo Nav",
+  "class": "prismo-header-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": []
+}
+{% endschema %}

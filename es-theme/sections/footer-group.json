@@ -1,0 +1,37 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer-prismo",
+      "settings": {}
+    },
+    "prismo_modals": {
+      "type": "prismo-global-modals",
+      "settings": {}
+    },
+    "prismo_modal_js": {
+      "type": "prismo-modal-js",
+      "settings": {}
+    },
+    "prismo_lang_switch": {
+      "type": "prismo-lang-switch",
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer",
+    "prismo_modals",
+    "prismo_modal_js",
+    "prismo_lang_switch"
+  ]
+}

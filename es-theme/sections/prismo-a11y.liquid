@@ -1,0 +1,160 @@
+{% capture prismo_src %}<style>
+/* Prismo accessibility patch (WCAG 2.1 AA) — 2026-07 */
+.btn-primary, .nav-cta, .popular-tag, .tc-play { color: #1a1040 !important; }
+footer h4 { color: #5a6b7d !important; }
+.footer-copy, .footer-made { color: #5a6b7d !important; }
+.crown-ticker { background: linear-gradient(135deg, #7c3aed 0%, #0269a4 100%) !important; }
+.crown-ticker-item { color: #ffffff !important; }
+.gc-badge { text-shadow: 0 1px 4px rgba(0,0,0,.65); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #7c3aed !important; outline-offset: 2px;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 3px solid #7c3aed !important; outline-offset: 1px;
+}
+.prismo-skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 99999;
+  background: #1a1040; color: #fff; padding: 10px 18px;
+  border-radius: 0 0 8px 0; font-weight: 700; text-decoration: none;
+}
+.prismo-skip-link:focus { left: 0; }
+.prismo-vid-pause {
+  position: absolute; bottom: 10px; right: 10px; z-index: 5;
+  width: 34px; height: 34px; border-radius: 50%; border: none;
+  background: rgba(26,16,64,.75); color: #fff; font-size: 13px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* umbrellas.gif keeps animating through the global animation freeze — swap to static */
+  .umbrella-section { background-image: none !important; background-color: #f5f7fc !important; }
+}
+</style>
+<script>
+(function () {
+  function labelInputs() {
+    var L = {
+      gateName: 'Your name', gateEmail: 'Email address',
+      gateLocation: 'City and state or country', gatePhone: 'Phone number',
+      chatInput: 'Type a message', cfFirst: 'First name', cfLast: 'Last name',
+      cfPractice: 'Practice name', cfEmail: 'Email address', cfPhone: 'Phone number',
+      cfCity: 'City', cfState: 'State', cfCountry: 'Country', cfMsg: 'Your message'
+    };
+    Object.keys(L).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && !el.getAttribute('aria-label')) el.setAttribute('aria-label', L[id]);
+    });
+  }
+  function faqAria() {
+    document.querySelectorAll('.p-faq-q').forEach(function (b) {
+      if (!b.hasAttribute('aria-expanded')) b.setAttribute('aria-expanded', 'false');
+    });
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('.p-faq-q');
+      if (!b) return;
+      setTimeout(function () {
+        var a = b.parentElement && b.parentElement.querySelector('.p-faq-a');
+        var open = a && a.offsetHeight > 0 && getComputedStyle(a).maxHeight !== '0px';
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }, 80);
+    });
+  }
+  function skipLink() {
+    if (document.querySelector('.prismo-skip-link')) return;
+    var pg = document.getElementById('page-home');
+    var mainEl = pg ? pg.parentElement : null;
+    if (!mainEl) return;
+    mainEl.setAttribute('role', 'main');
+    if (!mainEl.id) mainEl.id = 'prismo-main';
+    mainEl.setAttribute('tabindex', '-1');
+    var sk = document.createElement('a');
+    sk.className = 'prismo-skip-link';
+    sk.href = '#' + mainEl.id;
+    sk.textContent = 'Skip to content';
+    sk.addEventListener('click', function (ev) { ev.preventDefault(); mainEl.focus(); });
+    document.body.insertBefore(sk, document.body.firstChild);
+  }
+  function pauseButtons() {
+    /* drop buttons orphaned when swapHero() removes a video */
+    document.querySelectorAll('.prismo-vid-pause').forEach(function (b) {
+      if (!b.parentElement.querySelector('video')) b.remove();
+    });
+    document.querySelectorAll('video[autoplay]').forEach(function (v) {
+      var host = v.parentElement;
+      if (!host || v.offsetWidth < 50) return;
+      if (host.querySelector('.prismo-vid-pause')) return;
+      if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+      var b = document.createElement('button');
+      b.className = 'prismo-vid-pause';
+      b.type = 'button';
+      function setState(paused) {
+        b.textContent = paused ? '▶' : '❚❚';
+        b.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
+      }
+      b.addEventListener('click', function () {
+        if (v.paused) {
+          delete v.dataset.prismoUserPaused;
+          v.play().catch(function () {});
+        } else {
+          v.dataset.prismoUserPaused = '1';
+          v.pause();
+        }
+      });
+      v.addEventListener('play', function () { setState(false); });
+      v.addEventListener('pause', function () { setState(true); });
+      setState(v.paused);
+      host.appendChild(b);
+    });
+    rescueAutoplay();
+  }
+  /* Autoplay is intentional (muted, decorative product video). The pause button
+     above is the WCAG 2.2.2 pause mechanism. Some browsers still block muted
+     autoplay (iOS Low Power Mode, data saver) — retry on load and again on the
+     first user interaction, but never restart a video the visitor paused. */
+  function rescueAutoplay() {
+    document.querySelectorAll('video[autoplay]').forEach(function (v) {
+      if (v.paused && !v.dataset.prismoUserPaused) {
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    });
+  }
+  ['pointerdown', 'touchstart', 'keydown'].forEach(function (evt) {
+    document.addEventListener(evt, rescueAutoplay, { once: true, passive: true, capture: true });
+  });
+  function footerA11yLink() {
+    var heads = document.querySelectorAll('.footer-col h4');
+    for (var i = 0; i < heads.length; i++) {
+      if (/legal/i.test(heads[i].textContent)) {
+        var ul = heads[i].parentElement.querySelector('ul');
+        if (ul && !ul.querySelector('a[href="/pages/accessibility"]')) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '/pages/accessibility';
+          a.textContent = 'Accessibility';
+          li.appendChild(a);
+          ul.appendChild(li);
+        }
+        return;
+      }
+    }
+  }
+  function init() {
+    labelInputs(); faqAria(); skipLink(); footerA11yLink(); pauseButtons();
+    /* hero video is swapped in by swapHero() after load — re-check late */
+    setTimeout(pauseButtons, 1500);
+    setTimeout(function () { labelInputs(); pauseButtons(); }, 3500);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+  window.addEventListener('load', pauseButtons);
+})();
+</script>
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo A11y Patch",
+  "settings": [],
+  "presets": [{ "name": "Prismo A11y Patch" }]
+}
+{% endschema %}

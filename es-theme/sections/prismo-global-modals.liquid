@@ -1,0 +1,295 @@
+{% capture prismo_src %}<style>
+/* Hide Dawn default footer */
+.shopify-section-group-footer-group{display:none!important;}
+
+/* Announcement bar chips */
+.pgm-chips{display:inline-flex;align-items:center;gap:6px;margin-left:auto;padding-right:4px;}
+.pgm-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.4px;cursor:pointer;border:none;background:none;transition:all .15s;font-family:'Outfit',sans-serif;line-height:1.5;}
+.pgm-chip-faq{border:1.5px solid rgba(124,58,237,.38);color:#7c3aed;background:rgba(124,58,237,.06);}
+.pgm-chip-faq:hover{background:rgba(124,58,237,.14);border-color:rgba(124,58,237,.65);}
+.pgm-chip-ct{border:1.5px solid rgba(212,144,10,.38);color:#b37408;background:rgba(212,144,10,.06);}
+.pgm-chip-ct:hover{background:rgba(212,144,10,.14);border-color:rgba(212,144,10,.65);}
+@media(max-width:749px){.pgm-chips{display:none;}}
+
+/* Modal System */
+  .modal-overlay{position:fixed;inset:0;background:rgba(10,8,20,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+  .modal-overlay.active{opacity:1;pointer-events:all;}
+  .modal-box{background:#fff;border-radius:20px;width:90%;max-width:720px;max-height:82vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.22);transform:translateY(24px) scale(.97);transition:transform .28s cubic-bezier(.34,1.56,.64,1);}
+  .modal-overlay.active .modal-box{transform:translateY(0) scale(1);}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px 18px;border-bottom:1px solid rgba(0,0,0,.07);flex-shrink:0;}
+  .modal-header h3{font-family:'Playfair Display',serif;font-size:1.35rem;color:#1a1040;margin:0;}
+  .modal-close{width:34px;height:34px;border-radius:50%;border:none;background:rgba(0,0,0,.06);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#555;transition:background .15s;flex-shrink:0;}
+  .modal-close:hover{background:rgba(0,0,0,.13);}
+  /* FAQ accordion */
+  .faq-modal-box{max-width:680px;}
+  .faq-section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7c3aed;padding:18px 28px 8px;background:rgba(124,58,237,0.04);border-bottom:1px solid rgba(0,0,0,.06);}
+  .faq-item{border-bottom:1px solid rgba(0,0,0,.07);}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:16px 28px;font-size:14px;font-weight:600;color:#1a1040;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .15s;}
+  .faq-q:hover{background:rgba(124,58,237,0.04);}
+  .faq-q-icon{width:22px;height:22px;border-radius:50%;background:rgba(124,58,237,0.1);color:#7c3aed;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,background .2s;}
+  .faq-item.open .faq-q-icon{transform:rotate(45deg);background:rgba(124,58,237,0.18);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;}
+  .faq-item.open .faq-a{max-height:400px;}
+  .faq-a-inner{padding:0 28px 16px;font-size:13.5px;color:#4a5568;line-height:1.65;}
+  .modal-body{overflow-y:auto;padding:26px 28px 32px;flex:1;color:#2d2d3a;font-size:.94rem;line-height:1.72;}
+  .modal-body h2{font-family:'Playfair Display',serif;font-size:1.05rem;color:#1a1040;margin:26px 0 8px;}
+  .modal-body h2:first-child{margin-top:0;}
+  .modal-body p{margin:0 0 12px;}
+  .modal-body ul{padding-left:20px;margin:0 0 12px;}
+  .modal-body li{margin-bottom:5px;}
+  .modal-body a{color:#7c3aed;}
+  .modal-body strong{color:#1a1040;}
+  /* Contact modal */
+  .contact-modal-box{max-width:520px;}
+  .contact-step{display:none;}
+  .contact-step.active{display:block;}
+  .contact-options{display:flex;gap:16px;padding:32px 28px 36px;}
+  .contact-opt-btn{flex:1;border:2px solid rgba(124,58,237,.2);border-radius:16px;background:rgba(124,58,237,.03);padding:28px 16px;cursor:pointer;transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .contact-opt-btn:hover{border-color:rgba(124,58,237,.55);background:rgba(124,58,237,.07);transform:translateY(-2px);}
+  .contact-opt-icon{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;margin:0 auto;}
+  .contact-opt-icon svg{width:22px;height:22px;fill:#fff;}
+  .contact-opt-label{font-weight:700;font-size:.98rem;color:#1a1040;}
+  .contact-opt-desc{font-size:.8rem;color:#888;line-height:1.4;}
+  /* Chat */
+  .chat-window{display:flex;flex-direction:column;height:420px;}
+  .chat-messages{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:12px;background:#faf9ff;}
+  .chat-msg{display:flex;gap:10px;max-width:84%;}
+  .chat-msg.bot{align-self:flex-start;}
+  .chat-msg.user{align-self:flex-end;flex-direction:row-reverse;}
+  .chat-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:#fff;margin-top:2px;}
+  .chat-bubble{background:#fff;border-radius:14px 14px 14px 4px;padding:9px 13px;font-size:.88rem;line-height:1.5;color:#2d2d3a;box-shadow:0 1px 6px rgba(0,0,0,.07);}
+  .chat-msg.user .chat-bubble{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:14px 14px 4px 14px;}
+  .chat-typing{display:flex;gap:4px;padding:9px 13px;background:#fff;border-radius:14px 14px 14px 4px;box-shadow:0 1px 6px rgba(0,0,0,.07);}
+  .chat-typing span{width:7px;height:7px;border-radius:50%;background:#a78bfa;animation:chatDot 1.2s infinite;}
+  .chat-typing span:nth-child(2){animation-delay:.2s;}
+  .chat-typing span:nth-child(3){animation-delay:.4s;}
+  @keyframes chatDot{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-5px);opacity:1;}}
+  .chat-input-row{display:flex;gap:10px;padding:13px 16px;border-top:1px solid rgba(0,0,0,.07);background:#fff;}
+  .chat-input-row input{flex:1;border:1.5px solid rgba(0,0,0,.12);border-radius:24px;padding:9px 16px;font-size:.88rem;outline:none;transition:border-color .15s;}
+  .chat-input-row input:focus{border-color:#7c3aed;}
+  .chat-send-btn{width:38px;height:38px;border-radius:50%;border:none;background:linear-gradient(135deg,#7c3aed,#a855f7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s;}
+  .chat-send-btn:hover{opacity:.85;}
+  .chat-send-btn svg{width:15px;height:15px;fill:#fff;}
+  /* Contact form */
+  .contact-form-wrap{padding:18px 26px 26px;}
+  .contact-form-wrap .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .contact-form-wrap .form-row.single{grid-template-columns:1fr;}
+  .contact-form-wrap .form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+  .contact-form-wrap label{font-size:.78rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.04em;}
+  .contact-form-wrap input,.contact-form-wrap textarea{border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:9px 13px;font-size:.9rem;color:#1a1040;outline:none;transition:border-color .15s;background:#fff;width:100%;box-sizing:border-box;font-family:inherit;}
+  .contact-form-wrap input:focus,.contact-form-wrap textarea:focus{border-color:#7c3aed;}
+  .contact-form-wrap textarea{resize:vertical;min-height:90px;}
+  .req{color:#e05252;margin-left:2px;}
+  .contact-submit-btn{width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:.98rem;font-weight:700;cursor:pointer;margin-top:4px;transition:opacity .15s;}
+  .contact-submit-btn:hover{opacity:.88;}
+  .contact-back-btn{background:none;border:none;color:#7c3aed;font-size:.84rem;cursor:pointer;padding:0 0 10px;display:flex;align-items:center;gap:4px;}
+  .contact-back-btn:hover{text-decoration:underline;}
+  .form-success{text-align:center;padding:36px 20px;display:none;}
+  .form-success.active{display:block;}
+  .form-success-icon{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#34d399,#059669);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .form-success-icon svg{width:26px;height:26px;fill:#fff;}
+  .form-success h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:#1a1040;margin:0 0 8px;}
+  .form-success p{color:#666;font-size:.9rem;margin:0;}
+  /* Chat lead gate */
+  .chat-gate{padding:22px 26px 26px;overflow-y:auto;}
+  .chat-gate-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:#1a1040;margin:0 0 4px;}
+  .chat-gate-sub{font-size:.84rem;color:#777;margin:0 0 16px;line-height:1.5;}
+  .chat-gate .form-group{display:flex;flex-direction:column;gap:4px;margin-bottom:11px;}
+  .chat-gate label{font-size:.78rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.04em;}
+  .chat-gate input{border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:9px 13px;font-size:.9rem;color:#1a1040;outline:none;transition:border-color .15s;background:#fff;width:100%;box-sizing:border-box;font-family:inherit;}
+  .chat-gate input:focus{border-color:#7c3aed;}
+  .form-err{display:none;color:#e05252;font-size:.82rem;margin:2px 0 8px;line-height:1.4;}
+  .form-err.active{display:block;}
+</style>
+
+<div class="modal-overlay" id="policyModal" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="policyModalTitle"></h3>
+      <button class="modal-close" id="policyModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="policyModalBody"></div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+  <div class="modal-box contact-modal-box">
+    <div class="modal-header">
+      <h3 id="contactModalTitle">Contact Us</h3>
+      <button class="modal-close" id="contactModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="contact-step active" id="contactStep1">
+      <div class="contact-options">
+        <button class="contact-opt-btn" id="btnChatUs">
+          <div class="contact-opt-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+          <div class="contact-opt-label">Chat with Us</div>
+          <div class="contact-opt-desc">Get instant answers from our AI assistant</div>
+        </button>
+        <button class="contact-opt-btn" id="btnSendMsg">
+          <div class="contact-opt-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <div class="contact-opt-label">Send a Message</div>
+          <div class="contact-opt-desc">We'll reply within one business day</div>
+        </button>
+      </div>
+    </div>
+    <div class="contact-step" id="contactStep2Chat">
+      <div class="chat-gate" id="chatGate">
+        <div class="chat-gate-title">Before we chat&hellip;</div>
+        <div class="chat-gate-sub">Tell us who we're talking with so our team may follow up with you if needed.</div>
+        <div class="form-group"><label>Name<span class="req">*</span></label><input type="text" id="gateName" autocomplete="name" placeholder="Dr. Jane Smith"></div>
+        <div class="form-group"><label>Email<span class="req">*</span></label><input type="email" id="gateEmail" autocomplete="email" placeholder="you@practice.com"></div>
+        <div class="form-group"><label>Practice Location<span class="req">*</span></label><input type="text" id="gateLocation" placeholder="City, State (or Country)"></div>
+        <div class="form-group"><label>Phone <span style="color:#999;font-weight:400;text-transform:none;">(optional)</span></label><input type="tel" id="gatePhone" autocomplete="tel" placeholder="(555) 555-5555"></div>
+        <div class="form-err" id="gateErr"></div>
+        <button class="contact-submit-btn" id="gateStartBtn">Start Chat</button>
+      </div>
+      <div class="chat-window" id="chatWindow" style="display:none;">
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg bot">
+            <div class="chat-avatar">AI</div>
+            <div class="chat-bubble">Hi there! 👋 I'm the Prismo Crowns assistant. Ask me anything — kits, sizing, shipping, colors, or how to get started!</div>
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+          <button class="chat-send-btn" id="chatSendBtn" aria-label="Send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="contact-step" id="contactStep2Form">
+      <div class="contact-form-wrap">
+        <button class="contact-back-btn" id="formBackBtn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          Back
+        </button>
+        <div id="contactFormFields">
+          <div class="form-row">
+            <div class="form-group"><label>First Name<span class="req">*</span></label><input type="text" id="cfFirst" required></div>
+            <div class="form-group"><label>Last Name<span class="req">*</span></label><input type="text" id="cfLast" required></div>
+          </div>
+          <div class="form-row single">
+            <div class="form-group"><label>Practice Name</label><input type="text" id="cfPractice"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email<span class="req">*</span></label><input type="email" id="cfEmail" required></div>
+            <div class="form-group"><label>Phone<span class="req">*</span></label><input type="tel" id="cfPhone" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>City<span class="req">*</span></label><input type="text" id="cfCity" required></div>
+            <div class="form-group"><label>State / Province<span class="req">*</span></label><input type="text" id="cfState" required></div>
+          </div>
+          <div class="form-row single">
+            <div class="form-group"><label>Country<span class="req">*</span></label><input type="text" id="cfCountry" required></div>
+          </div>
+          <div class="form-row single">
+            <div class="form-group"><label>Message<span class="req">*</span></label><textarea id="cfMsg" required></textarea></div>
+          </div>
+          <div class="form-err" id="cfErr"></div>
+          <button class="contact-submit-btn" id="contactSubmitBtn">Send Message</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <h3>Message Sent!</h3>
+          <p>Thanks for reaching out. We'll get back to you within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Modal -->
+<div class="modal-overlay" id="faqModal" role="dialog" aria-modal="true" aria-labelledby="faqModalTitle">
+  <div class="modal-box faq-modal-box">
+    <div class="modal-header">
+      <h3 id="faqModalTitle">Frequently Asked Questions</h3>
+      <button class="modal-close" id="faqModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0;">
+
+      <div class="faq-section-label">For Dental Practices</div>
+
+      <div class="faq-item">
+        <button class="faq-q">What are Prismo Crowns?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Prismo Crowns are premium stainless steel pediatric dental crowns with vibrant colors created through a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating. The crowns are 100% biocompatible, and the color won't chip or fade.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How is the color applied? Is it safe?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Color is created through a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating. The crowns are 100% biocompatible and meet the same safety standards as traditional silver stainless steel crowns.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Does technique differ from traditional silver stainless steel crowns?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">No. Prismo Crowns use the exact same chairside placement technique as conventional silver stainless steel crowns. No new instruments, no new workflow. Your team can start using them from day one.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What is Pricing, Kit/Refill, and Sizes?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <strong>Intro Kit</strong> — 48 assorted crowns in sizes 3, 4 &amp; 5 &nbsp;·&nbsp; <strong>$10.99 ea.</strong><br>
+          <strong>Pro Kit</strong> — 240 crowns, all sizes, all molars &nbsp;·&nbsp; <strong>$9.99 ea.</strong><br>
+          <strong>Refill Packs</strong> — 5 crowns per tooth/size, restock exactly what you use &nbsp;·&nbsp; <strong>from $8.99 ea.</strong><br><br>
+          <strong>Crown sizing</strong> is comparable to 3M and Hu-Friedy — no adjustments to your existing workflow needed.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Do you ship to my country?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">We ship to most countries worldwide. Some regions are excluded due to international trade regulations or shipping limitations. If you're unsure whether we deliver to your location, contact us and we'll confirm.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What colors do you offer?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Current color options include Gold, Blue, Purple, Assorted, and Unicorn (iridescent/multicolor). Individual color refill packs start at $8.99 ea.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Are Prismo Crowns made in the USA?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, Prismo Crowns are manufactured in the USA.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How do Prismo Crowns bill? Is there a separate code for colored crowns?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">No separate code is needed. Prismo Crowns are billed under the exact same CDT code as traditional silver stainless steel crowns. Same prep, same placement, same documentation. Nothing changes on the administrative or clinical side.</div></div>
+      </div>
+
+      <div class="faq-section-label">For Parents</div>
+
+      <div class="faq-item">
+        <button class="faq-q">Are these crowns safe for my child?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Prismo Crowns are 100% biocompatible, made from the same surgical-grade stainless steel used in traditional pediatric crowns for decades. The color is created by a patented laser-assisted process that does not modify the surface of the steel — no dye, no paint, no coating.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Will my insurance cover a colored crown?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">If Silver is covered then Prismo is also covered, yes (all major dental insurances including Medicaid). Prismo Crowns are billed under the same dental code as standard stainless steel crowns, so insurance treats them the same. Ask your dentist to confirm coverage with your specific plan.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Will the color chip or fade?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Because the color comes from a patented laser-assisted process that does not modify the surface of the stainless steel — no dye, no paint, no coating — it is as durable as the silver crown. Normal brushing, eating, and drinking won't affect it, and the crowns are 100% biocompatible.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Does my child's dentist need special training?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">No special training is needed. Prismo Crowns are placed exactly like traditional silver stainless steel crowns, so any pediatric or general dentist already knows how to use them.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Will my child actually like a colored crown?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Most kids don't just like it, they ask for it by color. When a child gets to choose, the crown becomes something they own rather than something that happened to them. That shift changes the whole appointment.<br><br>Think of it like colored braces. Nobody hides braces anymore because kids turned them into a choice. Prismo works the same way. A kid who picked their color tends to show it off, and parents often notice they're brushing better at home too.</div></div>
+      </div>
+
+      <div class="faq-item" style="border-bottom:none;">
+        <button class="faq-q">Where can I ask a question not covered here?<span class="faq-q-icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Use the <strong>Contact Us</strong> button on this page to chat with our AI assistant or send a message directly to our team. We typically reply within one business day.</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}{"name":"Prismo Global Modals","settings":[]}{%- endschema %}

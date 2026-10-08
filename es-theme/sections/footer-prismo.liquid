@@ -1,0 +1,151 @@
+{% capture prismo_src %}<footer class="prismo-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="https://cdn.shopify.com/s/files/1/0887/0409/0388/files/prismocrowns-tooth-transparent.png?v=1781117660" alt="" width="38" height="38" style="height:38px;width:auto;">
+          PRISMO CROWNS
+        </div>
+        <p class="footer-tagline">The Modern Pediatric Crown Experience.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/prismocrowns/" class="s-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="ig-{{ section.id }}" cx="30%" cy="110%" r="150%">
+                  <stop offset="0%" stop-color="#fdf497"/>
+                  <stop offset="10%" stop-color="#fdb23d"/>
+                  <stop offset="40%" stop-color="#fd5949"/>
+                  <stop offset="65%" stop-color="#d6249f"/>
+                  <stop offset="100%" stop-color="#285AEB"/>
+                </radialGradient>
+              </defs>
+              <rect x="1" y="1" width="22" height="22" rx="6" fill="url(#ig-{{ section.id }})"/>
+              <circle cx="12" cy="12" r="4.5" fill="none" stroke="white" stroke-width="2"/>
+              <circle cx="17.3" cy="6.7" r="1.1" fill="white"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/PrismoCrowns/" class="s-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="22" height="22" rx="6" fill="#1877F2"/>
+              <path d="M15.5 7.5h-2a1.5 1.5 0 0 0-1.5 1.5v2H9.5v3H12v6h3v-6h2l.5-3H15V9a.5.5 0 0 1 .5-.5h1.5V7.5z" fill="white"/>
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/channel/UCj4ihou0UmNbEfye2oeXFgQ" class="s-icon" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="5" width="22" height="14" rx="4" fill="#FF0000"/>
+              <polygon points="9.5,8.5 9.5,15.5 16.5,12" fill="white"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="/products/prismo-intro-kit">Intro Kit (48 Crowns)</a></li>
+          <li><a href="/products/prismo-pro-kit-240-crowns">Pro Kit (240 Crowns)</a></li>
+          <li><a href="{{ routes.collections_url }}/shop-now">Refill Pack (5 crowns)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/#parents">For Parents</a></li>
+          <li><a href="/blogs/news">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+          <li><a href="/pages/refund-policy">Refund Policy</a></li>
+          <li><a href="/pages/merchant-policies">Merchant Policies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/pages/terms-and-conditions">Terms &amp; Conditions</a></li>
+          <li><a href="/pages/legal-notice">Legal Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; {{ 'now' | date: '%Y' }} Prismo Crowns. All rights reserved.</div>
+      <div class="footer-made">Proudly Made in the USA</div>
+      <div class="pay-icons">
+        <span class="pay-icon" style="display:inline-flex;align-items:center;gap:5px;">
+          <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="13" height="10" rx="2" stroke="currentColor" stroke-opacity="0.5"/><rect x="0.5" y="3" width="13" height="2" fill="currentColor" fill-opacity="0.4"/></svg>
+          Credit Cards
+        </span>
+        <span class="pay-icon" style="color:#003087;border-color:rgba(0,48,135,0.2);background:rgba(0,48,135,0.05);">
+          <span style="color:#009cde;font-weight:800;">Pay</span><span style="color:#003087;font-weight:800;">Pal</span>
+        </span>
+        <span class="pay-icon" style="display:inline-flex;align-items:center;gap:4px;">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.03 6.9c-.02-1.7 1.39-2.52 1.45-2.56C9.64 2.9 8.1 2.71 7.56 2.7c-1.3-.13-2.56.77-3.22.77-.67 0-1.68-.75-2.77-.73C.22 2.76-.8 3.62-1.36 4.82c-1.14 1.97-.29 4.87.8 6.47.55.79 1.19 1.67 2.03 1.64.82-.03 1.13-.52 2.12-.52.98 0 1.26.52 2.12.5.88-.01 1.44-.79 1.97-1.58.63-.9.88-1.78.9-1.83-.02-.01-1.57-.6-1.59-2.4zm-1.49-4.4c.44-.54.74-1.29.66-2.04-.64.03-1.43.43-1.89.96-.41.47-.78 1.23-.68 1.96.71.05 1.44-.36 1.91-.88z"/></svg>
+          Apple Pay
+        </span>
+        <span class="pay-icon" style="display:inline-flex;align-items:center;gap:3px;">
+          <span style="color:#4285F4;font-weight:800;">G</span><span style="opacity:0.7">oogle Pay</span>
+        </span>
+        <span class="pay-icon" style="color:#5a31f4;border-color:rgba(90,49,244,0.2);background:rgba(90,49,244,0.05);font-weight:700;">Shop Pay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.shopify-section-group-footer-group.prismo-footer-section { display: block !important; }
+.prismo-footer {
+  --navy-3: #eef1f8;
+  --white: #0a1628;
+  --gold: #d4900a;
+  --purple: #7c3aed;
+  --pink: #db2777;
+  --text-muted: #5a6f85;
+  --text-dim: #8fa3b8;
+  --border: rgba(0,0,60,0.09);
+  font-family: 'Outfit', sans-serif;
+  background: var(--navy-3);
+  border-top: 1px solid var(--border);
+  padding: 60px 56px 40px;
+  margin: 0;
+}
+.prismo-footer .footer-inner { max-width: 1200px; margin: 0 auto; }
+.prismo-footer .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+.prismo-footer .footer-logo { display: flex; align-items: center; gap: 9px; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; background: linear-gradient(135deg, var(--gold), var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+.prismo-footer .footer-tagline { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 310px; margin: 0 0 22px; }
+.prismo-footer .footer-socials { display: flex; gap: 10px; }
+.prismo-footer .s-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(0,0,0,0.04); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; text-decoration: none; }
+.prismo-footer .s-icon:hover { background: rgba(0,0,0,0.09); }
+.prismo-footer .s-icon svg { width: 18px; height: 18px; opacity: 1; }
+.prismo-footer .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-dim); margin: 0 0 18px; font-family: inherit; }
+.prismo-footer .footer-col ul { list-style: none; margin: 0; padding: 0; }
+.prismo-footer .footer-col li { margin-bottom: 11px; }
+.prismo-footer .footer-col a { color: rgba(10,22,40,0.5); text-decoration: none; font-size: 14px; transition: color .2s; }
+.prismo-footer .footer-col a:hover { color: var(--white); }
+.prismo-footer .footer-bottom { border-top: 1px solid var(--border); padding-top: 26px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.prismo-footer .footer-copy { font-size: 13px; color: var(--text-dim); }
+.prismo-footer .footer-made { font-size: 13px; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
+.prismo-footer .pay-icons { display: flex; gap: 7px; }
+.prismo-footer .pay-icon { background: rgba(0,0,0,0.04); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(--text-dim); }
+@media (max-width: 960px) {
+  .prismo-footer .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (max-width: 640px) {
+  .prismo-footer { padding: 48px 22px 36px; }
+  .prismo-footer .footer-top { grid-template-columns: 1fr; }
+}
+</style>
+
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo Footer",
+  "class": "prismo-footer-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": []
+}
+{% endschema %}

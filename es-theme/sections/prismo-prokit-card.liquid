@@ -1,0 +1,41 @@
+{% capture prismo_src %}{%- comment -%}
+  Prismo Pro Kit Card — reframes the homepage Pro Kit card around completeness
+  (every size, every molar, all colors) instead of an unverified "Most Popular" tag.
+  Patches the static mockup-homepage markup on load, like the other prismo-* patches.
+{%- endcomment -%}
+<script>
+(function () {
+  function patch() {
+    var card = document.querySelector('.kit-card.pro');
+    if (!card) return false;
+    var tag = card.querySelector('.popular-tag');
+    if (tag) tag.textContent = 'COMPLETE SET';
+    var list = card.querySelector('.kit-features');
+    if (list && !list.getAttribute('data-prismo-prokit')) {
+      list.setAttribute('data-prismo-prokit', '1');
+      list.innerHTML =
+        '<li><span class="chk">✓</span> Every size, every molar, all four colors</li>' +
+        '<li><span class="chk">✓</span> Never turn away a case for a missing size</li>' +
+        '<li><span class="chk">✓</span> One order. No restocking mid-case.</li>';
+    }
+    return true;
+  }
+  var tries = 0;
+  function run() {
+    tries++;
+    if (!patch() && tries < 20) setTimeout(run, 250);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo Pro Kit Card",
+  "settings": []
+}
+{% endschema %}

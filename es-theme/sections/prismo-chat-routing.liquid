@@ -1,0 +1,111 @@
+{% capture prismo_src %}{%- comment -%}
+  Prismo Chat Routing — corrects the keyword matcher's reply for distributor, order-change,
+  phone-number and how-to-order questions, and removes "best per-crown value" wording.
+  The original chat still handles every message, so the visitor's question stays in the
+  transcript email; only the reply shown on screen is replaced.
+{%- endcomment -%}
+<script>
+  (function () {
+    var RULES = [
+      { rx: /\b(distribut\w*|wholesale|resell\w*|dealers?|dealership|partnership|partner with|authorized agent|become an agent|sales agent|exclusive|importer|importing)\b/i,
+        a: 'Thanks for your interest in partnering with Prismo! Please email prismocrowns@prismocrowns.com with your company name, region, and a short introduction, and our team will follow up with you personally.' },
+      { rx: /(change (my|our|the) order|change it|can (we|i) change|\b(we|i) ordered\b|wrong kit|\bmy order\b|order (status|number)|\btracking\b|track my|where is my|\bcancel\w*|\bmodify\b|\bupgrade\b|\bswitch\b)/i,
+        a: 'Happy to help with your order! Please email prismocrowns@prismocrowns.com with your order number and what you would like to change, and our team will take care of it within one business day.' },
+      { rx: /\bnumber\b/i,
+        a: 'You can reach our team at prismocrowns@prismocrowns.com, or use the Send a Message option and we will reply within one business day.' },
+      { rx: /(how (do|can) (i|we) (place an |make an )?order|place an order|order online)/i,
+        a: 'Dental practices can order directly at prismocrowns.com — head to the Shop section for the Intro Kit, Pro Kit, and refill packs. Checkout takes about a minute.' }
+    ];
+    var SIZING_REPLY = 'Sizing is one of the easiest parts of switching';
+
+    function answerFor(txt) {
+      for (var i = 0; i < RULES.length; i++) {
+        if (RULES[i].rx.test(txt)) return RULES[i].a;
+      }
+      return null;
+    }
+
+    function lastUserText(msgs) {
+      var users = msgs.querySelectorAll('.chat-msg.user .chat-bubble');
+      return users.length ? users[users.length - 1].textContent.trim() : '';
+    }
+
+    function fixReply(msgs, bubble) {
+      if (!bubble || bubble.getAttribute('data-prismo-routed')) return;
+      bubble.setAttribute('data-prismo-routed', '1');
+      if (bubble.textContent.indexOf(SIZING_REPLY) !== -1) return;
+      var faqTail = bubble.querySelector('.chat-faq-tail');
+      var tailHtml = faqTail ? faqTail.outerHTML : '';
+      var answer = answerFor(lastUserText(msgs));
+      if (answer) {
+        bubble.innerHTML = answer + tailHtml;
+        return;
+      }
+      if (bubble.innerHTML.indexOf('best per-crown value') !== -1) {
+        bubble.innerHTML = bubble.innerHTML
+          .replace('For the best per-crown value, the Pro Kit (240 crowns) is the way to go.', 'For volume or practice-group pricing, email prismocrowns@prismocrowns.com and our team will put together a quote.')
+          .replace('for the best per-crown value.', 'for a complete set.');
+      }
+    }
+
+    /* Keep the transcript email in sync with what the visitor saw: rewrite the AI lines of
+       the "NEW AI CHAT SESSION" body (built with URLSearchParams in mockup-homepage)
+       using the same sizing / routing / wording corrections applied on screen. */
+    var SIZING_RX = /\b(siz(e|es|ed|ing)|3\s*m|unitek|espe|hu[\s.-]?friedy|hufriedy|comparab\w*|compatib\w*|equivalen\w*|interchang\w*|fits?|fitment|dimensions?|conversion|crossover)\b/i;
+    var SIZING_TEXT = 'Sizing is one of the easiest parts of switching. Prismo Crowns come in standard pediatric sizes 2–7 and follow the same universal stainless steel crown sizing you already use — comparable to 3M stainless steel crown sizing, so the size you place today is the size you pick with Prismo. Providers have also shared that the fit lines up with Hu-Friedy sizing. Same chairside trial-and-fit, no conversion chart needed. The Intro Kit covers the most-used sizes (3, 4 & 5), and refill packs are available in every size 2–7.';
+    function correctTranscript(body) {
+      var lastVisitor = '';
+      return body.split('\n').map(function (line) {
+        var v = line.match(/^\[[^\]]*\] Visitor: (.*)$/);
+        if (v) { lastVisitor = v[1]; return line; }
+        var a = line.match(/^(\[[^\]]*\] AI: )(.*)$/);
+        if (!a || !lastVisitor) return line;
+        if (SIZING_RX.test(lastVisitor)) return a[1] + SIZING_TEXT;
+        var routed = answerFor(lastVisitor);
+        if (routed) return a[1] + routed;
+        return a[1] + a[2]
+          .replace('For the best per-crown value, the Pro Kit (240 crowns) is the way to go.', 'For volume or practice-group pricing, email prismocrowns@prismocrowns.com and our team will put together a quote.')
+          .replace('for the best per-crown value.', 'for a complete set.');
+      }).join('\n');
+    }
+    var origAppend = URLSearchParams.prototype.append;
+    URLSearchParams.prototype.append = function (name, value) {
+      if (name === 'contact[body]' && typeof value === 'string' && value.indexOf('NEW AI CHAT SESSION') === 0) {
+        try { value = correctTranscript(value); } catch (err) {}
+      }
+      return origAppend.call(this, name, value);
+    };
+
+    var tries = 0;
+    function watchChat() {
+      tries++;
+      var msgs = document.getElementById('chatMessages');
+      if (!msgs) {
+        if (tries < 30) setTimeout(watchChat, 300);
+        return;
+      }
+      new MutationObserver(function (muts) {
+        muts.forEach(function (m) {
+          for (var i = 0; i < m.addedNodes.length; i++) {
+            var n = m.addedNodes[i];
+            if (n.nodeType === 1 && n.classList.contains('chat-msg') && n.classList.contains('bot')) {
+              var b = n.querySelector('.chat-bubble');
+              if (b) setTimeout(function (bb) { return function () { fixReply(msgs, bb); }; }(b), 0);
+            }
+          }
+        });
+      }).observe(msgs, { childList: true });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchChat);
+    } else {
+      watchChat();
+    }
+  })();
+</script>
+{% endcapture %}{% render 'prismo-es', html: prismo_src %}{% schema %}
+{
+  "name": "Prismo Chat Routing",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{%- comment -%}
+  Prismo language switcher — floating EN / ES pill. Renders nothing unless the store has
+  more than one published language, so it stays invisible until Spanish is published.
+{%- endcomment -%}
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', class: 'prismo-lang', id: 'PrismoLangForm' -%}
+    <input type="hidden" name="return_to" value="{{ request.path }}">
+    {%- for language in localization.available_languages -%}
+      <button type="submit" name="language_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}"
+        title="{{ language.endonym_name | capitalize }}"
+        {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}>
+        {{- language.iso_code | upcase -}}
+      </button>
+    {%- endfor -%}
+  {%- endform -%}
+  <style>
+    .prismo-lang { position: fixed; left: 16px; bottom: 16px; z-index: 900; display: flex; gap: 2px;
+      margin: 0; padding: 3px; background: rgba(255,255,255,.95); border: 1px solid rgba(0,0,60,.12);
+      border-radius: 999px; box-shadow: 0 6px 20px rgba(10,22,40,.12); font-family: 'Outfit', sans-serif; }
+    .prismo-lang button { border: 0; background: transparent; color: #0a1628; font: 700 12.5px/1 'Outfit', sans-serif;
+      letter-spacing: .5px; padding: 8px 11px; border-radius: 999px; cursor: pointer; }
+    .prismo-lang button[aria-current="true"] { background: #1a1040; color: #fff; }
+  </style>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Prismo Language Switch",
+  "settings": []
+}
+{% endschema %}

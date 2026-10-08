@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "custom_liquid_9LPcta": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% capture prismo_src %}{% assign blue_handle = 'pack-of-5-colored-stainless-steel-dental-crowns-blue' %}\n{% assign assorted_handle = 'pack-of-5-colored-stainless-steel-dental-crowns-5' %}\n{% assign gold_handle = 'pack-of-5-colored-stainless-steel-dental-crowns-gold' %}\n{% assign unicorn_handle = 'pack-of-5-colored-stainless-steel-dental-crowns-unicorn' %}\n{% assign purple_handle = 'pack-of-5-colored-stainless-steel-dental-crowns-purple' %}\n\n{% assign assorted_swatch = 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/Assorted_Prismo_800x800.jpg?v=1763345309' %}\n{% assign unicorn_swatch = 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/Unicorn-emoji_800x800.jpg?v=1763579012' %}\n\n{% assign current_handle = product.handle %}\n\n{% if current_handle == blue_handle %}\n{% assign first_handle = blue_handle %}\n{% assign second_handle = assorted_handle %}\n{% assign third_handle = gold_handle %}\n{% assign fourth_handle = unicorn_handle %}\n{% assign fifth_handle = purple_handle %}\n{% elsif current_handle == gold_handle %}\n{% assign first_handle = gold_handle %}\n{% assign second_handle = assorted_handle %}\n{% assign third_handle = blue_handle %}\n{% assign fourth_handle = unicorn_handle %}\n{% assign fifth_handle = purple_handle %}\n{% elsif current_handle == unicorn_handle %}\n{% assign first_handle = unicorn_handle %}\n{% assign second_handle = assorted_handle %}\n{% assign third_handle = blue_handle %}\n{% assign fourth_handle = gold_handle %}\n{% assign fifth_handle = purple_handle %}\n{% elsif current_handle == assorted_handle %}\n{% assign first_handle = assorted_handle %}\n{% assign second_handle = blue_handle %}\n{% assign third_handle = gold_handle %}\n{% assign fourth_handle = unicorn_handle %}\n{% assign fifth_handle = purple_handle %}\n{% elsif current_handle == purple_handle %}\n{% assign first_handle = purple_handle %}\n{% assign second_handle = assorted_handle %}\n{% assign third_handle = blue_handle %}\n{% assign fourth_handle = gold_handle %}\n{% assign fifth_handle = unicorn_handle %}\n{% else %}\n{% assign first_handle = blue_handle %}\n{% assign second_handle = assorted_handle %}\n{% assign third_handle = gold_handle %}\n{% assign fourth_handle = unicorn_handle %}\n{% assign fifth_handle = purple_handle %}\n{% endif %}\n\n<div style=\"margin: 14px 0 18px;\">\n<div style=\"font-weight: 600; margin-bottom: 8px;\">Shop other colors</div>\n<div style=\"display: flex; gap: 10px; flex-wrap: wrap; align-items: center;\">\n\n{% assign handles = first_handle | append: ',' | append: second_handle | append: ',' | append: third_handle | append: ',' | append: fourth_handle | append: ',' | append: fifth_handle | split: ',' %}\n\n{% for h in handles %}\n{% assign border = '2px solid #ccc' %}\n{% if h == current_handle %}\n{% assign border = '3px solid #222' %}\n{% endif %}\n\n{% if h == blue_handle %}\n<a href=\"/products/{{ h }}\" aria-label=\"Blue\" title=\"Blue\"\nstyle=\"display:inline-block; width:34px; height:34px; border-radius:999px; background:#1f5eff; border:{{ border }}; box-sizing:border-box;\"></a>\n\n{% elsif h == assorted_handle %}\n<a href=\"/products/{{ h }}\" aria-label=\"Assorted\" title=\"Assorted\"\nstyle=\"display:inline-block; width:34px; height:34px; border-radius:999px; border:{{ border }}; box-sizing:border-box; background:#fff url('{{ assorted_swatch }}') center/cover no-repeat;\"></a>\n\n{% elsif h == gold_handle %}\n<a href=\"/products/{{ h }}\" aria-label=\"Gold\" title=\"Gold\"\nstyle=\"display:inline-block; width:34px; height:34px; border-radius:999px; background:#d4a017; border:{{ border }}; box-sizing:border-box;\"></a>\n\n{% elsif h == unicorn_handle %}\n<a href=\"/products/{{ h }}\" aria-label=\"Unicorn\" title=\"Unicorn\"\nstyle=\"display:inline-block; width:34px; height:34px; border-radius:999px; border:{{ border }}; box-sizing:border-box; background:#f6f1ff url('{{ unicorn_swatch }}') center/cover no-repeat;\"></a>\n\n{% elsif h == purple_handle %}\n<a href=\"/products/{{ h }}\" aria-label=\"Purple\" title=\"Purple\"\nstyle=\"display:inline-block; width:34px; height:34px; border-radius:999px; background:#A54DCF; border:{{ border }}; box-sizing:border-box;\"></a>\n{% endif %}\n\n{% endfor %}\n</div>\n</div>{% endcapture %}{% render 'prismo-es', html: prismo_src %}"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "custom_liquid_WimqbJ": {
+          "type": "custom_liquid",
+          "name": "Intro/Pro Custom Liquid",
+          "settings": {
+            "custom_liquid": "{% capture prismo_src %}<div class=\"intro-pro-buttons\" style=\"margin-top: 1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;\">\n<button\ntype=\"button\"\nid=\"intro-kit-button\"\nclass=\"button\"\nstyle=\"\nflex:1;\nmin-width:180px;\npadding:0.6rem 0.8rem;\nbackground-color:#f5f5f5;\ncolor:#000000;\nborder:1px solid #cccccc;\nborder-radius:8px;\ntext-align:center;\nline-height:1.3;\n\"\n>\n<span style=\"font-weight:700;\">Intro Kit</span><br>\n<span style=\"font-size:0.9rem;\">48 assorted crowns</span><br>\n<span style=\"font-size:0.85rem;\">sizes 3, 4, 5</span>\n</button>\n\n<button\ntype=\"button\"\nid=\"pro-kit-button\"\nclass=\"button\"\nstyle=\"\nflex:1;\nmin-width:180px;\npadding:0.6rem 0.8rem;\nbackground-color:#1f6f2b;\ncolor:#ffffff;\nborder:1px solid #1f6f2b;\nborder-radius:8px;\ntext-align:center;\nline-height:1.3;\n\"\n>\n<span style=\"font-weight:700;\">Pro Kit</span><br>\n<span style=\"font-size:0.9rem;\">240 crowns</span><br>\n<span style=\"font-size:0.85rem;\">(All Sizes All Molars)</span>\n</button>\n</div>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', function() {\nvar refillProduct = {{ product | json }};\nvar introKitProduct = {{ all_products['prismo-intro-kit'] | json }};\nvar proKitProduct = {{ all_products['prismo-pro-kit-240-crowns'] | json }};\n\nfunction getColorIndex(product) {\nif (!product || !product.options) return -1;\nfor (var i = 0; i < product.options.length; i++) {\nif (product.options[i] && product.options[i].toLowerCase() === 'color') {\nreturn i;\n}\n}\nreturn -1;\n}\n\nvar colorIndexPro = getColorIndex(proKitProduct);\n\nfunction findVariantForColor(product, color, colorIndex) {\nif (!product || !product.variants || !color || colorIndex === -1) return null;\nvar target = color.toLowerCase();\n\nfor (var i = 0; i < product.variants.length; i++) {\nvar v = product.variants[i];\nvar opt = null;\n\nif (colorIndex === 0) opt = v.option1;\nelse if (colorIndex === 1) opt = v.option2;\nelse if (colorIndex === 2) opt = v.option3;\n\nif (opt && opt.toLowerCase() === target) {\nreturn v;\n}\n}\nreturn null;\n}\n\nfunction detectCurrentPageColor() {\nvar title = (refillProduct && refillProduct.title ? refillProduct.title : '').toLowerCase();\nvar path = window.location.pathname.toLowerCase();\n\nif (title.indexOf('blue') !== -1 || path.indexOf('blue') !== -1) return 'Blue';\nif (title.indexOf('gold') !== -1 || path.indexOf('gold') !== -1) return 'Gold';\nif (title.indexOf('unicorn') !== -1 || path.indexOf('unicorn') !== -1) return 'Unicorn';\nif (title.indexOf('assorted') !== -1 || path.indexOf('assorted') !== -1) return 'Assorted';\n\nreturn null;\n}\n\nfunction getMainProductForm() {\nreturn document.querySelector('product-form form[action=\"/cart/add\"]') ||\ndocument.querySelector('form[action=\"/cart/add\"]');\n}\n\nfunction triggerNativeAddToCart(targetVariantId) {\nvar form = getMainProductForm();\nif (!form) {\nalert('Main product form not found.');\nreturn;\n}\n\nvar idInput = form.querySelector('input[name=\"id\"]');\nif (!idInput) {\nalert('Variant input not found.');\nreturn;\n}\n\nvar submitButton =\nform.querySelector('button[type=\"submit\"]') ||\nform.querySelector('[name=\"add\"]');\n\nif (!submitButton) {\nalert('Add to cart button not found.');\nreturn;\n}\n\nvar originalVariantId = idInput.value;\n\nidInput.value = String(targetVariantId);\n\nsubmitButton.click();\n\nsetTimeout(function() {\nidInput.value = originalVariantId;\n}, 700);\n}\n\nvar introBtn = document.getElementById('intro-kit-button');\nvar proBtn = document.getElementById('pro-kit-button');\n\nif (introBtn) {\nintroBtn.addEventListener('click', function(e) {\ne.preventDefault();\n\nwindow.location.href = '/products/prismo-intro-kit';\n});\n}\n\nif (proBtn) {\nproBtn.addEventListener('click', function(e) {\ne.preventDefault();\n\nwindow.location.href = '/products/prismo-pro-kit-240-crowns';\n});\n}\n});\n</script>{% endcapture %}{% render 'prismo-es', html: prismo_src %}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "description",
+        "price",
+        "custom_liquid_9LPcta",
+        "variant_picker",
+        "custom_liquid_WimqbJ",
+        "buy_buttons"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 10,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
+}

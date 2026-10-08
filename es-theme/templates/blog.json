@@ -1,0 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blog_hero_prismo": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% capture prismo_src %}<style>\n.prismo-bh{background:linear-gradient(135deg,#0d0a2e 0%,#0a1628 40%,#1a0d3e 100%);padding:72px 24px 56px;text-align:center;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}\n.prismo-bh-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 80%);pointer-events:none}\n.prismo-bh-orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:prismo-bh-float 8s ease-in-out infinite}\n.prismo-bh-o1{width:280px;height:280px;background:rgba(124,58,237,.22);top:-60px;right:10%}\n.prismo-bh-o2{width:200px;height:200px;background:rgba(2,132,199,.18);bottom:-30px;left:8%;animation-delay:-3s}\n.prismo-bh-o3{width:160px;height:160px;background:rgba(212,144,10,.15);top:25%;left:28%;animation-delay:-6s}\n.prismo-bh-o4{width:120px;height:120px;background:rgba(219,39,119,.15);bottom:10%;right:20%;animation-delay:-4s}\n@keyframes prismo-bh-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}\n.prismo-bh-shapes{position:absolute;inset:0;pointer-events:none}\n.prismo-bh-s{position:absolute;border-radius:50%;animation:prismo-bh-3d 7s ease-in-out infinite}\n.prismo-bh-s1{width:18px;height:18px;background:linear-gradient(135deg,#d4900a,#db2777);top:18%;left:7%}\n.prismo-bh-s2{width:12px;height:12px;background:#7c3aed;top:65%;left:6%;animation-delay:-2s}\n.prismo-bh-s3{width:22px;height:22px;background:linear-gradient(135deg,#0284c7,#7c3aed);top:22%;right:7%;animation-delay:-4s}\n.prismo-bh-s4{width:10px;height:10px;background:#db2777;bottom:25%;right:10%;animation-delay:-1s}\n.prismo-bh-s5{width:16px;height:16px;background:linear-gradient(135deg,#059669,#0284c7);top:50%;right:20%;animation-delay:-5s}\n.prismo-bh-s6{width:8px;height:8px;background:#d4900a;top:40%;left:20%;animation-delay:-3.5s}\n@keyframes prismo-bh-3d{0%,100%{transform:translateY(0) translateZ(0) rotateY(0deg) scale(1)}33%{transform:translateY(-14px) translateZ(28px) rotateY(22deg) scale(1.12)}66%{transform:translateY(-7px) translateZ(14px) rotateY(-12deg) scale(1.06)}}\n.prismo-bh-inner{position:relative;z-index:2;max-width:680px;margin:0 auto;transition:transform .15s ease}\n.prismo-bh-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(212,144,10,.12);border:1px solid rgba(212,144,10,.35);color:#d4900a;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px}\n.prismo-bh-dot{width:5px;height:5px;border-radius:50%;background:#d4900a;display:inline-block}\n.prismo-bh-title{font-size:clamp(2.6rem,7vw,4.2rem);font-weight:800;background:linear-gradient(135deg,#d4900a 0%,#db2777 50%,#7c3aed 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 16px;line-height:1.1;letter-spacing:-1px}\n.prismo-bh-sub{color:rgba(255,255,255,.62);font-size:1.05rem;margin:0 auto;line-height:1.65;max-width:520px}\n</style>\n<div class=\"prismo-bh\" id=\"prismoBlogHero\">\n  <div class=\"prismo-bh-grid\"></div>\n  <div class=\"prismo-bh-orb prismo-bh-o1\"></div>\n  <div class=\"prismo-bh-orb prismo-bh-o2\"></div>\n  <div class=\"prismo-bh-orb prismo-bh-o3\"></div>\n  <div class=\"prismo-bh-orb prismo-bh-o4\"></div>\n  <div class=\"prismo-bh-shapes\">\n    <div class=\"prismo-bh-s prismo-bh-s1\"></div>\n    <div class=\"prismo-bh-s prismo-bh-s2\"></div>\n    <div class=\"prismo-bh-s prismo-bh-s3\"></div>\n    <div class=\"prismo-bh-s prismo-bh-s4\"></div>\n    <div class=\"prismo-bh-s prismo-bh-s5\"></div>\n    <div class=\"prismo-bh-s prismo-bh-s6\"></div>\n  </div>\n  <div class=\"prismo-bh-inner\" id=\"prismoBlogInner\">\n    <div class=\"prismo-bh-tag\"><span class=\"prismo-bh-dot\"></span>Prismo Crowns</div>\n    <h1 class=\"prismo-bh-title\">Insights</h1>\n    <p class=\"prismo-bh-sub\">Research, stories, and clinical perspectives shaping pediatric dentistry — and why kids deserve more than silver.</p>\n  </div>\n</div>\n<script>\n(function(){\n  var h=document.getElementById('prismoBlogHero'),i=document.getElementById('prismoBlogInner');\n  if(!h||!i)return;\n  h.addEventListener('mousemove',function(e){\n    var r=h.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;\n    i.style.transform='perspective(900px) rotateY('+(x*10)+'deg) rotateX('+(-y*7)+'deg)';\n  });\n  h.addEventListener('mouseleave',function(){i.style.transform='perspective(900px) rotateY(0deg) rotateX(0deg)';});\n})();\n</script>{% endcapture %}{% render 'prismo-es', html: prismo_src %}",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "prismo_modals": {
+      "type": "prismo-global-modals",
+      "settings": {}
+    },
+    "prismo_footer": {
+      "type": "prismo-footer",
+      "settings": {}
+    },
+    "prismo_modal_js": {
+      "type": "prismo-modal-js",
+      "settings": {}
+    }
+  },
+  "order": [
+    "blog_hero_prismo",
+    "main",
+    "prismo_modals",
+    "prismo_footer",
+    "prismo_modal_js"
+  ]
+}

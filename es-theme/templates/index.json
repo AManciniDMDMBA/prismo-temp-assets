@@ -1,0 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "layout": "mockup",
+  "sections": {
+    "main": {
+      "type": "mockup-homepage",
+      "settings": {}
+    },
+    "prismo_blog_roll": {
+      "type": "prismo-blog-roll",
+      "settings": {}
+    },
+    "chat_sizing_patch": {
+      "type": "prismo-chat-sizing",
+      "settings": {}
+    },
+    "chat_routing_patch": {
+      "type": "prismo-chat-routing",
+      "settings": {}
+    },
+    "a11y_patch": {
+      "type": "prismo-a11y",
+      "settings": {}
+    },
+    "prokit_card_patch": {
+      "type": "prismo-prokit-card",
+      "settings": {}
+    },
+    "prismo_lang_switch": {
+      "type": "prismo-lang-switch",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "prismo_blog_roll",
+    "chat_sizing_patch",
+    "chat_routing_patch",
+    "a11y_patch",
+    "prokit_card_patch",
+    "prismo_lang_switch"
+  ]
+}
