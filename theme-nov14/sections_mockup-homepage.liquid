@@ -2228,7 +2228,7 @@
   var umb = document.querySelector('.umbrella-section');
   if(umb){
     if('IntersectionObserver' in window){
-      var uio = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ umb.classList.add('bg-on'); uio.disconnect(); } },{ rootMargin:'600px 0px' });
+      var uio = new IntersectionObserver(function(en){ if(en[0].isIntersecting){ umb.classList.add('bg-on'); uio.disconnect(); } },{ rootMargin:'200px 0px' });
       uio.observe(umb);
     } else { umb.classList.add('bg-on'); }
   }

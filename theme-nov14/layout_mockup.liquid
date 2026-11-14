@@ -358,6 +358,8 @@
     <script>
       (function () {
         var SPIN_VIDEO = 'https://cdn.shopify.com/videos/c/vp/5f235ffcaa5b481aafd862a499028df8/5f235ffcaa5b481aafd862a499028df8.HD-720p-3.0Mbps-86211195.mp4';
+        var SPIN_VIDEO_SD = 'https://cdn.shopify.com/videos/c/vp/5f235ffcaa5b481aafd862a499028df8/5f235ffcaa5b481aafd862a499028df8.SD-480p-1.2Mbps-86211195.mp4';
+        var SPIN_POSTER = 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/preview_images/5f235ffcaa5b481aafd862a499028df8.thumbnail.0000000000.jpg?v=1781120724&width=800';
         var CROWNS_PHOTO = 'https://cdn.shopify.com/s/files/1/0887/0409/0388/files/crowns-product.png?v=1788791927&width=1200';
         var tries = 0;
         function swapHero() {
@@ -385,7 +387,10 @@
             '<span style="display:block;font-size:clamp(17px,1.9vw,25px);font-weight:700;color:#9aa7b5;letter-spacing:1.5px;">From ordinary</span>' +
             '<span style="display:block;font-size:clamp(23px,2.6vw,34px);font-weight:800;letter-spacing:0.5px;background:linear-gradient(90deg,#e53935,#f4a100,#d4b800,#43a047,#1e88e5,#8e24aa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">To extraordinary</span>';
           var v = document.createElement('video');
-          v.src = SPIN_VIDEO;
+          /* Phones and 3G connections get the lighter 480p file; the poster shows while it loads */
+          var light = window.innerWidth <= 700 || (conn && /3g$/.test(conn.effectiveType || ''));
+          v.poster = SPIN_POSTER;
+          v.src = light ? SPIN_VIDEO_SD : SPIN_VIDEO;
           v.autoplay = true;
           v.muted = true;
           v.loop = true;
