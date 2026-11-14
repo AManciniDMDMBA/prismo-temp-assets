@@ -1762,7 +1762,7 @@
           </div>
         </div>
         <div class="aos delay-2">
-          <video src="https://cdn.shopify.com/videos/c/vp/edff8e0c2d764a438432081a5bf21df5/edff8e0c2d764a438432081a5bf21df5.HD-720p-3.0Mbps-86106858.mp4" autoplay loop muted playsinline preload="auto"
+          <video data-lazy-src="https://cdn.shopify.com/videos/c/vp/edff8e0c2d764a438432081a5bf21df5/edff8e0c2d764a438432081a5bf21df5.HD-720p-3.0Mbps-86106858.mp4" loop muted playsinline preload="none"
             style="width:100%;border-radius:20px;display:block;box-shadow:0 12px 48px rgba(0,0,0,0.12);"></video>
         </div>
       </div>
@@ -2667,6 +2667,18 @@
     var _pages = { home: document.getElementById('page-home'), parents: document.getElementById('page-parents'), compare: document.getElementById('page-compare') };
 
     window.showPage = function(name) {
+      /* Videos on the hidden sub-pages download only when their page is opened */
+      try {
+        document.querySelectorAll('video[data-lazy-src]').forEach(function(v){
+          if (v.offsetParent === null && name === 'home') return;
+          setTimeout(function(){
+            if (v.offsetParent === null || !v.getAttribute('data-lazy-src')) return;
+            v.src = v.getAttribute('data-lazy-src');
+            v.removeAttribute('data-lazy-src');
+            v.play().catch(function(){});
+          }, 60);
+        });
+      } catch (e) {}
       Object.keys(_pages).forEach(function(k){ if(_pages[k]) _pages[k].style.display = 'none'; });
       if(_pages[name]) _pages[name].style.display = 'block';
       // Instant scroll to top
