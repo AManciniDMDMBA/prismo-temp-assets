@@ -1,0 +1,122 @@
+{%- comment -%}
+  Prismo FAQ Updates (Nov 14 2026) — keeps the FAQ modal in line with the chat answers and
+  the store policies: softer samples answer (316L, no lunch-and-learns), shipping flat rate,
+  kit colors, and new entries for material / nickel, tooth coverage, returns and patient
+  materials. Patches the static FAQ markup on load, like the other prismo-* patches.
+{%- endcomment -%}
+{%- capture refill_each -%}{% render 'prismo-per-crown-price', kit: 'refill' %}{%- endcapture -%}
+<style>
+  .faq-item.open .faq-a { max-height: 1200px; }
+</style>
+<script>
+(function () {
+  if (window.__prismoFaqUpdates) return;
+  window.__prismoFaqUpdates = true;
+  var REFILL_EACH = {{ refill_each | strip_html | json }};
+  var MAIL = '<a href="mailto:prismocrowns@prismocrowns.com">prismocrowns@prismocrowns.com</a>';
+
+  function find(modal, part) {
+    var hit = null;
+    modal.querySelectorAll('.faq-item .faq-q').forEach(function (btn) {
+      if (!hit && btn.textContent.indexOf(part) !== -1) hit = btn.closest('.faq-item');
+    });
+    return hit;
+  }
+  function setAnswer(item, html) {
+    if (!item) return;
+    var inner = item.querySelector('.faq-a-inner') || item.querySelector('.faq-a');
+    if (inner) inner.innerHTML = html;
+  }
+  function addAfter(modal, anchor, cls, q, html) {
+    if (!anchor || modal.querySelector('.' + cls)) return anchor;
+    var item = document.createElement('div');
+    item.className = 'faq-item ' + cls;
+    var btn = document.createElement('button');
+    btn.className = 'faq-q';
+    btn.textContent = q;
+    var icon = document.createElement('span');
+    icon.className = 'faq-q-icon';
+    icon.textContent = '+';
+    btn.appendChild(icon);
+    var a = document.createElement('div');
+    a.className = 'faq-a';
+    a.innerHTML = '<div class="faq-a-inner">' + html + '</div>';
+    item.appendChild(btn);
+    item.appendChild(a);
+    anchor.parentNode.insertBefore(item, anchor.nextSibling);
+    btn.addEventListener('click', function () {
+      var wasOpen = item.classList.contains('open');
+      modal.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+    return item;
+  }
+
+  var samplesDone = false;
+  function patch(modal) {
+    setAnswer(find(modal, 'Do you ship to my country'),
+      'Yes. We ship throughout the US and to most countries worldwide. International shipping is a flat rate of US$29.99 for most countries, with faster carrier options (DHL, UPS, FedEx) shown at checkout. Orders typically process within 2–5 business days.<br><br>' +
+      'International customers are responsible for any customs duties or import taxes charged by their country. If your country isn’t available at checkout, contact us and we’ll confirm.');
+
+    var colors = find(modal, 'What colors do you offer');
+    setAnswer(colors,
+      'Prismo Crowns come in four colors: Gold, Blue, Purple and Unicorn (iridescent/multicolor). The <strong>Intro Kit</strong> and <strong>Pro Kit</strong> are available in a single color or Assorted (a mix of all four), and <strong>Refill Packs</strong> are sold by color and size from ' + REFILL_EACH + ' ea.');
+
+    var pricing = find(modal, 'Pricing');
+    if (pricing) {
+      var w = document.createTreeWalker(pricing, NodeFilter.SHOW_TEXT), n;
+      while ((n = w.nextNode())) {
+        if (n.nodeValue.indexOf('48 assorted crowns in sizes 3, 4 & 5') !== -1) {
+          n.nodeValue = n.nodeValue.replace('48 assorted crowns in sizes 3, 4 & 5', '48 crowns in sizes 3, 4 & 5, in one color or Assorted');
+        }
+      }
+    }
+
+    var a = colors || find(modal, 'made in the USA');
+    a = addAfter(modal, a, 'faq-material-item', 'What are Prismo Crowns made of? Do they contain nickel?',
+      'Prismo Crowns are made from surgical-grade 316L stainless steel. Like every stainless steel crown, they contain some nickel as part of the alloy; no stainless steel crown is completely nickel-free. The color comes from a patented laser-assisted process with no dye, paint or coating.<br><br>' +
+      'For a patient with a known nickel allergy, the choice of crown is a clinical decision for the treating dentist.');
+    a = addAfter(modal, a, 'faq-teeth-item', 'Which teeth are Prismo Crowns for?',
+      'Prismo Crowns are pediatric crowns for primary molars: first and second primary molars, upper and lower, in sizes 2–7. Anterior crowns and crowns for permanent (adult) teeth are not available yet.');
+    a = addAfter(modal, a, 'faq-materials-item', 'Do you have materials for our patients and parents?',
+      'Yes. We have a patient poster and a parent brochure you can use in your office. Use the Contact Us button or email ' + MAIL + ' with your practice name and we’ll send them over.');
+    addAfter(modal, a, 'faq-returns-item', 'What is your return policy?',
+      'Because Prismo Crowns are medical devices for professional dental use, all sales are final. We’re glad to review a replacement, store credit or refund if your order arrived damaged, the wrong product was shipped, or there is a confirmed manufacturing defect.<br><br>' +
+      'Email ' + MAIL + ' within 7 days of delivery with your order number and photos. See our <a href="/pages/refund-policy">Refund Policy</a> for details.');
+
+    var samples = modal.querySelector('.faq-samples-item');
+    if (samples && !samplesDone) {
+      samplesDone = true;
+      setAnswer(samples,
+        'We don’t send samples or do lunch-and-learns, simply because there’s nothing new to learn. Prismo Crowns use the same preparation, cementation and chairside workflow as the traditional silver stainless steel crowns you already place, and they’re made from surgical-grade 316L stainless steel. The only thing that’s new is the color, created by our proprietary, patented process.<br><br>' +
+        'The best introduction is the <strong>Intro Kit</strong>: 48 crowns in sizes 3, 4 &amp; 5, enough to see how your patients respond across real cases. Prefer to start smaller? A single <strong>Refill Pack</strong> (5 crowns) works too, though it covers only one size.');
+    }
+    return samplesDone;
+  }
+
+  var tries = 0, patchedOnce = false;
+  function run() {
+    tries++;
+    var modal = document.getElementById('faqModal');
+    var done = false;
+    if (modal) {
+      if (!patchedOnce) { patchedOnce = true; }
+      done = patch(modal);
+    }
+    /* keep trying briefly: the samples entry is added by another script */
+    if (!done && tries < 40) setTimeout(run, 250);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Prismo FAQ Updates",
+  "settings": []
+}
+{% endschema %}
