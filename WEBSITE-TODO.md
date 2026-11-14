@@ -1,13 +1,9 @@
 # Prismo Crowns website: to-do list (saved Nov 14, 2026)
 
-## Step 1: publish the follow-up draft (owner, one click)
-The main Nov 14 theme (ID 195038478612) was published by the owner on Nov 14 and verified
-live from the US, Egypt and Spain.
-A small follow-up draft is waiting: Shopify admin > Online Store > Themes >
-"PREVIEW 2 — blog titles + product page polish (Nov 14)" > Publish.
-Theme ID: 195048636692. Preview: https://prismocrowns.com/?preview_theme_id=195048636692
-It contains: full blog titles on phones, kit switcher labels stacked with the current kit
-outlined, and product descriptions without the link-like underlines and red text.
+## Status
+Both Nov 14 themes were published by the owner. Live theme: "PREVIEW 2 — blog titles +
+product page polish (Nov 14)" (ID 195048636692). Verified live: local prices, chat, FAQ,
+phone layout, full blog titles, kit switcher, product description styling, shop page order.
 
 ## Done on Nov 14 (inside the preview theme unless noted)
 - Local-currency prices on homepage cards, FAQ, chat and product descriptions
@@ -24,8 +20,8 @@ outlined, and product descriptions without the link-like underlines and red text
 ## To do later
 1. Native-speaker review of the chat replies: Arabic, German, Turkish, French,
    Spanish, Portuguese (file: sections/prismo-chat-routing.liquid).
-2. Cookie banner covers the lower half of a phone screen for new visitors. Owner setting:
-   Settings > Customer privacy > Cookie banner; limit it to regions that require it.
+2. Cookie banner: not seen on the live site in tests from the US, Egypt or Spain; earlier
+   sightings were all in theme-preview mode. Worth one check on a real phone in the EU.
 3. Remove marketing apps no longer used (Klaviyo, PushOwl, Lucky Orange, Brevo, upsell app,
    translator app all load scripts on every page). One of them logs "Visitor ID not set"
    on every page.
