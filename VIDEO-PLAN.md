@@ -25,6 +25,25 @@ from the real product photos so the crowns look right.
 | 11 | Nothing new to learn | 30s | Dentist-to-dentist message with on-screen points: same code (D2930), same placement, sizing comparable to 3M. Narrator, not a named or implied real dentist. |
 | 12 | Intro Kit in 20 seconds | 20s | The kit: 48 crowns, sizes 3, 4 & 5, one color or Assorted. "Start here." |
 
+## Messages every video should carry (from real dentist feedback, no names used)
+The owner shared testimonials on Nov 14 to show the tone. Use the ideas, never the
+dentists' names, faces or exact quotes.
+- Shape and size feel very similar to the 3M crowns practices have used for years.
+- Same prep. Same cement. Better appointment. Happier kids.
+- Same trusted stainless steel protection and the same proven clinical success.
+- A little color makes a big difference in reducing a child's fear.
+- Giving kids a choice: cooperation improves, anxiety drops, and the visit is more
+  positive for the child and the parent.
+- Kids ask "isn't there a more colorful one?" and smile when they see the crown in the mirror.
+- Word gets around the community that the practice offers colored crowns.
+- "The next shift in pediatric dentistry": a simple change with a significant impact.
+- Outstanding child engagement, durability, and a positive experience for children.
+
+Where they go: 1 and 8 carry "word gets around"; 2 and 7 carry fear, choice and the mirror
+smile; 3 and 11 carry "similar to 3M, same prep, same cement, same clinical success";
+4, 5, 6, 9, 10 carry "kids ask for the colorful one"; 12 closes on "the next shift in
+pediatric dentistry".
+
 ## Two changes from the original brief
 - Rumi (KPop Demon Hunters) and the Trolls characters are owned by Netflix/Sony and
   DreamWorks. Using them in ads without a licence invites takedowns and legal claims, so
