@@ -80,6 +80,8 @@
         var m = txt.match(LANG_RX[k]); var n = m ? m.length : 0;
         if (n > bestN) { bestN = n; best = k; }
       });
+      /* An English sentence with one accented name (e.g. "ship to Türkiye") stays English */
+      if (bestN <= 1 && (txt.match(/\b(do|does|you|your|the|is|are|can|how|what|we|i|to|for|ship|have|any|of)\b/gi) || []).length >= 2) return 'en';
       return best;
     }
     var T = {
