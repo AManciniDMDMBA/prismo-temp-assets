@@ -262,6 +262,9 @@ div.prismo-nav-spacer { display: block; }
   /* Kit switcher on product pages: stack the three label lines and mark the kit being viewed */
   .intro-pro-buttons .button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
   .intro-pro-buttons .button br { display: none; }
+  /* Product descriptions: underlined and red text looked like links or errors */
+  .product__description span[style*="underline"] { text-decoration: none !important; }
+  .product__description span[style*="rgb(255, 42, 0)"] { color: inherit !important; }
   {%- if product.handle == 'prismo-intro-kit' %}
   #intro-kit-button { border: 2px solid #1a1040 !important; box-shadow: 0 0 0 3px rgba(26,16,64,0.12); }
   {%- elsif product.handle == 'prismo-pro-kit-240-crowns' %}
