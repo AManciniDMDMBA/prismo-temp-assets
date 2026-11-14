@@ -904,6 +904,8 @@
       /* Blue banner gradient */
       .ann-bar { animation-duration: 18s !important; }
     }
+    /* Stop off-screen carousel cards and modals from making phones render the page wider than the screen */
+    html { overflow-x:hidden; overflow-x:clip; }
     .ann-short { display:none; }
     .nav-cta { white-space:nowrap; }
     @media (max-width:640px) {
