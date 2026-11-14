@@ -1,0 +1,17 @@
+{
+  "layout": "mockup",
+  "sections": {
+    "main": { "type": "mockup-homepage", "settings": {} },
+    "prismo_blog_roll": { "type": "prismo-blog-roll", "settings": {} },
+    "chat_sizing_patch": { "type": "prismo-chat-sizing", "settings": {} },
+    "chat_routing_patch": { "type": "prismo-chat-routing", "settings": {} },
+    "a11y_patch": { "type": "prismo-a11y", "settings": {} },
+    "prokit_card_patch": { "type": "prismo-prokit-card", "settings": {} },
+    "seo_links_patch": { "type": "prismo-seo-links", "settings": {} },
+    "local_prices_patch": { "type": "prismo-local-prices", "settings": {} }
+  },
+  "order": [
+    "main", "prismo_blog_roll", "chat_sizing_patch", "chat_routing_patch",
+    "a11y_patch", "prokit_card_patch", "seo_links_patch", "local_prices_patch"
+  ]
+}
