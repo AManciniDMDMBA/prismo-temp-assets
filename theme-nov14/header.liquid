@@ -52,6 +52,17 @@
 </div>
 <div class="prismo-nav-spacer"></div>
 <script>
+  /* Keep the spacer exactly as tall as the fixed header so page content never sits under it */
+  (function () {
+    var nav = document.querySelector('.prismo-nav'), sp = document.querySelector('.prismo-nav-spacer');
+    if (!nav || !sp) return;
+    function fit() { sp.style.height = nav.offsetHeight + 'px'; }
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+  })();
+</script>
+<script>
   (function () {
     var btn = document.querySelector('.prismo-nav .prismo-burger');
     var menu = document.getElementById('prismoMobileMenu');
@@ -115,7 +126,7 @@
 }
 /* The theme's base CSS hides empty divs, which left page content tucked under the fixed header */
 div.prismo-nav-spacer { display: block; }
-.prismo-nav-spacer { height: 63px; }
+.prismo-nav-spacer { height: 77px; }
 .prismo-ann .ann-short { display: none; }
 .prismo-nav .nav-logo {
   display: flex;
@@ -241,7 +252,7 @@ div.prismo-nav-spacer { display: block; }
 @media (max-width: 1100px) {
   .prismo-nav { padding: 14px 20px; }
   .prismo-nav .nav-links { display: none; }
-  .prismo-nav-spacer { height: 59px; }
+  .prismo-nav-spacer { height: 70px; }
   .prismo-burger { display: flex; }
 }
 </style>
